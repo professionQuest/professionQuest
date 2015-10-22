@@ -21,4 +21,9 @@ router.get('/edit-user', function(req, res, next) {
   res.render('edit-user', { title: 'Edit User' });
 });
 
+
+router.post('/login', function(req, res, next) {
+  res.render('index', { title: 'Hello' });
+});
+
 module.exports = router;
