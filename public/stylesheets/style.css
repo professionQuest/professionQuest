@@ -1,8 +1,44 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body{
+	background-image: url("../images/background.jpg");
+	background-repeat: no-repeat;
+    background-position: right top;
+}
+.navbar-default{
+	background-color: #47c7ef;
+	height: 63px;
+	border-color: #47c7ef;
+}
+/*.back{
+	background-image: cover;
+}*/
+
+/*.searchBox{
+
+	font-size: 14;
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(200deg, rgba(124, 178, 40, 0.9) 0%, rgba(80, 179, 226, 0.9) 100%);
+    box-shadow: rgba(0,0,0,0.15) 1px 1px 5px;
+}*/
+
+#box{
+	margin-bottom: 5px;
 }
 
-a {
-  color: #00B7FF;
+.jumbotron{
+	text-align: center;
+	color: white;
+	margin-top: 250px;
+	background: rgba(71, 199, 239, 0.90);
+	border: solid white;
+	border-radius: 25px !important;
+/*	background-image:
+    linear-gradient(
+      to top right, 
+      green, #47c7ef
+    );
+    opacity: 0.5;*/
 }
