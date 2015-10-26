@@ -5,9 +5,10 @@ var bodyParser = require('body-parser');
 
 router.use(bodyParser.urlencoded({ extended: false }));
 
-function requireSession(req, res, next) {
-  if (!req.session.user) {
-    res.redirect('/login');
+function requireUser(req, res, next) {
+  if (req.session.user !== req.params.id) {
+    console.log('Not authorized');
+    res.redirect('/');
   } else {
     next();
   }
@@ -39,7 +40,7 @@ router.post('/', function(req, res) {
 });
 
 // Render Edit User Page
-router.get('/edit-user', function(req, res) {
+router.get('/:id/edit', requireUser, function(req, res) {
   res.render('edit-user', { title: 'Edit User' });
 });
 
