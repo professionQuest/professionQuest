@@ -3,8 +3,8 @@ var Views = (function(){
 //[]new search 
 	var NewSearchView = Backbone.View.extend({
 		render : function () {
-			var textInput = '<input id="query" type="text">';
-			var buttonSearch = '<button id="buttonSearch">Search</button>';
+			var textInput = '<div class="container"><div class="jumbotron"><input id="query" type="text"class="form-control" placeholder="Job title or keyword" aria-describedby="sizing-addon1">'+'<input id="query" type="text"class="form-control" placeholder="Location" aria-describedby="sizing-addon1">';
+			var buttonSearch = '<button id="buttonSearch" class="btn btn-default btn-lg">Search</button></div></div>';
 			this.$el.html(textInput + buttonSearch);
 
 			return this;
