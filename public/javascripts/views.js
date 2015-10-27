@@ -1,6 +1,5 @@
 var Views = (function(){
-//[]userview
-//[]new search 
+
 	var NewSearchView = Backbone.View.extend({
 		render : function () {
 			var textInput = '<input id="query" type="text">';
@@ -10,28 +9,47 @@ var Views = (function(){
 			return this;
 		},
 		events : {
-			'#buttonSearch click' : 'displayResults'
+			'click #buttonSearch' : 'displayResults'
 		},
 		displayResults : function () {
-			//create a new search collection
-			//create a new search collection view (with 'q' for whatever is in the input)
+			var searchResults = new app.Models.SearchResults(null, { query: $('#query').val() });
+			var searchResultsView = new SearchResultsView({ collection: searchResults });
+			$('#app').append(searchResultsView.render().$el);
+		}
+	});
 
-			var query = $('#query').val();
-			var searchResults = new app.Models.SearchResults(); 
-			//create new search results view and append to document
+	var SearchResultView = Backbone.View.extend({
+		className : 'search-result',
+		render : function () {
+			var title = '<span class="title">' + this.model.get('jobTitle') + '</span>';
+			var company = '<span class="company">' + this.model.get('company') + '</span>';
+			var date = '<span class="date">' + this.model.get('date') + '</span>';
+			var link = '<a href="' + this.model.get('detailUrl') + '" class="link">' + this.model.get('detailUrl') + '</a>';
+
+			this.$el.html(title + company + date + link);
+			return this;
 		}
 	});
 
 	var SearchResultsView = Backbone.View.extend({
+		id : 'search-results',
 		render : function () {
-			//[] loop through the collection and 
-				//[] create individual search result views
+			this.$el.html('');
+			this.collection.each(function(model) {
+				var result = new SearchResultView({ model: model });
+				this.$el.append(result.render().$el);
+			}, this);
+
 			return this;
 		},
-	})
+		initialize : function() {
+			this.listenTo(this.collection, 'update', this.render);
+		}
+	});
 
 	return {
-		NewSearchView : NewSearchView
+		NewSearchView : NewSearchView,
+		SearchResultView : SearchResultView,
+		SearchResultsView : SearchResultsView
 	};
 })();
-
