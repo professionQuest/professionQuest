@@ -8,7 +8,11 @@
   <body>
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
-            <img src="/images/logo.png" style="width: 200px; height: 76px">
+        <img src="/images/logo.png" style="width: 200px; height: 76px">
+        {{#if session.user}}
+        <a href="/users/{{user._id}}/edit">Edit {{user.email}}</a>
+        <a href="/logout">Logout</a>
+        {{/if}}
       </div>
     </nav>
     {{{body}}}

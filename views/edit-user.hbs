@@ -1,18 +1,21 @@
 <div class="container">
   <div class="jumbotron">
     <h1>Welcome to Profession Quest</h1>
-    <div class="input-group input-group-lg">
-      <span class="input-group-btn">
-      <input type="text" class="form-control" placeholder="Change your email address" aria-describedby="sizing-addon1">
-    </div>
-    <div class="input-group input-group-lg">
-      <span class="input-group-btn">
-      <input type="text" class="form-control" placeholder="Change your password" aria-describedby="sizing-addon1">
-    </div>
-    <div class="input-group input-group-lg">
-      <span class="input-group-btn">
-      <input type="text" class="form-control" placeholder="Confirm your password" aria-describedby="sizing-addon1">
-    </div>
-    <p><button class="btn btn-default btn-lg" type="submit" role="button">Submit</button></p>
+    <form action="/users/{{user._id}}/edit" method="post">
+      <input type="hidden" name="_method" value="put">
+      <div class="input-group input-group-lg">
+        <span class="input-group-btn">
+        <input name="email" type="text" class="form-control" placeholder="Change your email address" aria-describedby="sizing-addon1" value={{user.email}}>
+      </div>
+      <div class="input-group input-group-lg">
+        <span class="input-group-btn">
+        <input name="password" type="text" class="form-control" placeholder="Change your password" aria-describedby="sizing-addon1">
+      </div>
+      <div class="input-group input-group-lg">
+        <span class="input-group-btn">
+        <input name="confirmation" type="text" class="form-control" placeholder="Confirm your password" aria-describedby="sizing-addon1">
+      </div>
+      <p><button class="btn btn-default btn-lg" type="submit" role="button">Submit</button></p>
+    </form>
   </div>
 </div>

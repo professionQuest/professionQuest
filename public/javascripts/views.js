@@ -24,7 +24,7 @@ var Views = (function(){
 			var title = '<span class="title">' + this.model.get('jobTitle') + '</span>';
 			var company = '<span class="company">' + this.model.get('company') + '</span>';
 			var date = '<span class="date">' + this.model.get('date') + '</span>';
-			var link = '<a href="' + this.model.get('detailUrl') + '" class="link">' + this.model.get('detailUrl') + '</a>';
+			var link = '<a href="' + this.model.get('detailUrl') + '" target="_blank" class="link">' + this.model.get('detailUrl') + '</a>';
 
 			this.$el.html(title + company + date + link);
 			return this;

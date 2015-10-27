@@ -2,6 +2,7 @@ body{
 	background-image: url("../images/background.jpg");
 	background-repeat: no-repeat;
    background-position: right top;
+   background-position: fixed;
 }
 .navbar-default{
 	background-color: #47c7ef;
@@ -26,4 +27,9 @@ body{
 	background: rgba(71, 199, 239, 0.90);
 	border: solid white;
 	border-radius: 25px !important;
+}
+.search-result{
+	padding: 5px;
+	margin: 30px;
+	background-color: rgba(71, 199, 239, 0.50);
 }
