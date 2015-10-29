@@ -31,21 +31,28 @@ router.get('/register', function(req, res) {
 
 // Create User
 router.post('/', function(req, res) {
-  if (req.body.password !== req.body.confirmation) {
-    console.log('Passwords must match');
-    res.redirect('/users/register');
-  } else {
-    var user = new User({
-      email: req.body.email,
-      password: req.body.password
-    });
+  User.findOne({email : req.body.email}, function(err, user) {
+    if (!user) {
+      if (req.body.password !== req.body.confirmation) {
+        console.log('Passwords must match');
+        res.redirect('/users/register');
+      } else {
+        var user = new User({
+          email: req.body.email,
+          password: req.body.password
+        });
 
-    user.save(function(err) {
-      if (err) res.send(err);
+        user.save(function(err) {
+          if (err) res.send(err);
 
-      res.redirect('/login');
-    });
-  }
+          res.redirect('/login');
+        });
+      }
+    } else {
+      console.log('Username exists');
+      res.redirect('/users/register');
+    }
+  });
 });
 
 // Render Edit User Page
@@ -60,23 +67,23 @@ router.get('/:id/edit', requireUser, function(req, res) {
 router.put('/:id/edit', requireUser, function(req, res) {
   User.findOne({_id : req.params.id}, function(err, user) {
     if (err) {res.send(err)};
-    
-    if (req.body.password !== req.body.confirmation) 
+
+    if (req.body.password !== req.body.confirmation)
     {
       console.log('Passwords must match');
       res.redirect('/users/' + req.params.id + '/edit');
-    } 
-    else 
+    }
+    else
     {
       if(req.body.password === '')
       {
         delete req.body.password;
       }
-      for (var key in req.body) 
+      for (var key in req.body)
       {
         user[key] = req.body[key];
       };
-      user.save(function(err) 
+      user.save(function(err)
         {
           if (err) res.send(err);
           console.log('user changed successfully');
