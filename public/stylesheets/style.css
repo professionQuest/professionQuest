@@ -1,23 +1,38 @@
 body{
 	background-image: url("../images/background.jpg");
 	background-repeat: no-repeat;
-   background-position: right top;
-   background-attachment: fixed;
+  background-position: right top;
+  background-attachment: fixed;
 }
 .navbar-default{
 	background-color: #47c7ef;
-	height: 63px;
+	height: 10%;
 	border-color: #47c7ef;
 }
-
-.input-group .form-control{
-	margin-bottom: 8px;
+.logo{
+	position: absolute;
+	left: 0px;
+	margin-left: 1em;
 }
 
-.btn-group-lg.btn, .btn-lg{
+.navbar-text .navbar-right{
+
+}
+.input-group .form-control{
+	margin-bottom: 8px;
+	width: 100%;
+	margin-right: 5px;
+	float: none;
+}
+
+.btn-group-lg.btn,.btn-lg{
 	border-radius: 300px;
 	margin-top: 8px;
 	width: 10em;
+	background-color: black;
+	color: white;
+	border: none;
+	position: none;
 }
 
 .jumbotron{
@@ -26,11 +41,11 @@ body{
 	margin-top: 250px;
 	background: rgba(71, 199, 239, 0.90);
 	border: solid white;
-	border-radius: 25px !important;
+	border-radius: 10px !important;
 	padding: 8px;
 }
 .search-result{
-		margin: 30px;
+		margin-top: 30px;
 		background-color: white;
     min-height: 20px;
     padding-bottom: 2%;
@@ -46,10 +61,16 @@ body{
 }
 
 #query{
+	margin-top: 5%;
+	margin-bottom: 5%;
 	line-height: 2;
 	width: 50%;
+
 }
 
+.buttonSearch{
+	
+}
 
 
 
