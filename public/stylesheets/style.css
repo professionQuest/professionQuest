@@ -14,27 +14,37 @@ body{
 	left: 0px;
 	margin-left: 1em;
 }
-
-.navbar-text .navbar-right{
-
+/*user nav*/
+.dropdown{
+	position: relative;
+	display: inline-block;
+	float: right;
 }
-.input-group .form-control{
-	margin-bottom: 8px;
+.dropdown .dropdown-menu{
+	position: absolute;
+	top: 100%;
+	display: none;
+	margin-right: 0;
+	list-style: none;
 	width: 100%;
-	margin-right: 5px;
-	float: none;
+	padding: 0;
+
+}
+.dropdown:hover .dropdown-menu{
+	display: block;
+}
+.dropdown a{
+	display: block;
+	padding: 0.2em 0.8em;
+	text-decoration: none;
+	background-color: #cccccc;
+	color: #333333;
+}
+.dropdown a:hover{
+	background: #BBBBBB;
 }
 
-.btn-group-lg.btn,.btn-lg{
-	border-radius: 300px;
-	margin-top: 8px;
-	width: 10em;
-	background-color: black;
-	color: white;
-	border: none;
-	position: none;
-}
-
+/*main section all pages*/
 .jumbotron{
 	text-align: center;
 	color: white;
@@ -44,22 +54,49 @@ body{
 	border-radius: 10px !important;
 	padding: 8px;
 }
-.search-result{
-		margin-top: 30px;
-		background-color: white;
-    min-height: 20px;
-    padding-bottom: 2%;
-    margin-bottom: 5%;
-    background-color: #f5f5f5;
-    border: 1px solid #e3e3e3;
-    border-radius: 4px;
-    width: 85%;
-    margin: auto;
+/*input fields*/
+.input-group .form-control{
+	margin-bottom: 8px;
+	width: 100%;
+	margin-right: 5px;
+	float: none;
 }
-.search-result:hover{
-	background-color: grey;
+/*buttons*/
+.btn-group-lg.btn,.btn-lg{
+	border-radius: 300px;
+	margin-top: 8px;
+	width: 10em;
+	background-color: black;
+	color: white;
+	border: none;
+	position: none;
+}
+/*search display*/
+#tableTop{
+	background-color: #47c7ef;
+	font-weight: bold; 
+	font-size: 20px;
+	width: 85%;
+	text-align: center;
 }
 
+.search-result{
+		background-color: white;
+    background-color: #f5f5f5;
+    width: 85%;
+    margin: auto;
+    font-size: 20px;
+    line-height: 20px;
+    padding: 8px;
+}
+
+.search-result:hover{
+	background-color: #BBBBBB;
+}
+
+.company{
+	font-weight: bold; 
+}
 #query{
 	margin-top: 5%;
 	margin-bottom: 5%;
@@ -67,10 +104,5 @@ body{
 	width: 50%;
 
 }
-
-.buttonSearch{
-	
-}
-
 
 

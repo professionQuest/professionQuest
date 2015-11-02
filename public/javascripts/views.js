@@ -2,9 +2,10 @@ var Views = (function(){
 
 	var NewSearchView = Backbone.View.extend({
 		render : function () {
-			var textInput = '<div class="container"><input id="query" type="text" class=""input-group"">';
-			var buttonSearch = '<button id="buttonSearch" class="btn btn-default">Search</button></div>';
-			this.$el.html(textInput + buttonSearch);
+			var textInput = '<div class="container"><input id="query" type="text" class="input-group">';
+			var buttonSearch = '<button id="buttonSearch" class="fa fa-search fa-2x"></button></div>';
+			var tableJobs = '<div class="container" id="tableTop"><div class="col-md-3">Job Title</div><div class="col-md-3">Company</div><div class="col-md-3">Date</div><div class="col-md-3">Location</div></div>'
+			this.$el.html(textInput + buttonSearch + tableJobs);
 
 			return this;
 		},
@@ -21,12 +22,12 @@ var Views = (function(){
 	var SearchResultView = Backbone.View.extend({
 		className : 'search-result',
 		render : function () {
-			var title = '<span class="title">' + this.model.get('jobTitle') + '</span>';
-			var company = '<span class="company">' + this.model.get('company') + '</span>';
-			var date = '<span class="date">' + this.model.get('date') + '</span>';
-			var link = '<a href="' + this.model.get('detailUrl') + '" target="_blank" class="link">' + this.model.get('detailUrl') + '</a>';
+			var title = '<div class="container"><div class="col-md-3"><a href="' + this.model.get('detailUrl') + '" class="title">' + this.model.get('jobTitle') + '</a></div>';
+			var company = '<div class="col-md-3" class="company">' + this.model.get('company') + '</div>';
+			var date = '<div class="col-md-3" class="date">' + this.model.get('date') + '</div></div>';
+			//var link = '<a href="' + this.model.get('detailUrl') + '" target="_blank" class="link">' + this.model.get('detailUrl') + '</a>';
 
-			this.$el.html(title + company + date + link);
+			this.$el.html(title + company + date);
 			return this;
 		}
 	});

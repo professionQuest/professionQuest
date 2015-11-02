@@ -11,15 +11,15 @@
       <div class="container">
         <img src="/images/logo.png" class="logo"style="width: auto; height: 100%">
           {{#if session.user}}
-    
-          
-            <a href="/users/{{user._id}}/edit">Edit {{user.email}}</a>
-            <a href="/logout">Logout</a>
-          
+      <div class="dropdown">
+        <div></a><i class="fa fa-user fa-4x"></i></div>
+            <ul class="dropdown-menu">
+              <li><a href="/users/{{user._id}}/edit">Edit {{user.email}}</a></li>
+              <li><a href="/logout">Logout</a></li>
+            </ul>
+      </div>
           {{/if}}
-    
-          </div>
-
+      </div>
     </nav>
     {{{body}}}
     
