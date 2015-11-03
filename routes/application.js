@@ -15,8 +15,8 @@ function requireSession(req, res, next) {
 }
 
 // Request
-router.get('/request/:q', function (req, res) {
-	request('http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=' + req.params.q, function (error, response, body) {
+router.get('/request/:q/:city', function (req, res) {
+	request('http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=' + req.params.q + '&city=' + req.params.city, function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
 	    var result = JSON.parse(body);
       res.send(result.resultItemList);
@@ -25,7 +25,7 @@ router.get('/request/:q', function (req, res) {
 });
 
 // Application
-router.get('/', requireSession, function(req, res) {
+router.get('/', function(req, res) {
   console.log(req.session.user);
   console.log('test');
 
