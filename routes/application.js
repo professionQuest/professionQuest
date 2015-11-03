@@ -15,19 +15,25 @@ function requireSession(req, res, next) {
 }
 
 // Request
-router.get('/request/:q', function (req,res) {
-	request('http://service.dice.com/api/rest/jobsearch/v1/simple.json?text='+req.params.q, function (error, response, body) {
+router.get('/request/:q', function (req, res) {
+	request('http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=' + req.params.q, function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
-	    res.send(body); // Show the HTML for the Google homepage. 
+	    var result = JSON.parse(body);
+      res.send(result.resultItemList);
 	  }
-	})	
+	});
 });
 
 // Application
 router.get('/', requireSession, function(req, res) {
-  res.render('index', { title: 'Profession Quest' });
+  console.log(req.session.user);
+  console.log('test');
+
+  User.findOne({_id : req.session.user}, function(err, user) {
+    if (err) {res.send(err)};
+    res.render('index', { title: 'Profession Quest' , user : user });
+  })
 });
 
+
 module.exports = router;
-
-

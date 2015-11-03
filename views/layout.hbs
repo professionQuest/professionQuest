@@ -2,20 +2,29 @@
 <html>
   <head>
     <title>{{title}}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-
-      <nav class="navbar navbar-default navbar-fixed-top">
-                <img src="/images/logo.png" style="width: 200px; height: 76px">
-          <div class="logout">      
-                <button type="button" class="btn btn-default navbar-btn">logout</button>
-          </div>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <img src="/images/logo.png" class="logo"style="width: auto; height: 100%">
+          {{#if session.user}}
+      <div class="dropdown">
+        <div></a><i class="fa fa-user fa-4x"></i></div>
+            <ul class="dropdown-menu">
+              <li><a href="/users/{{user._id}}/edit">Edit {{user.email}}</a></li>
+              <li><a href="/logout">Logout</a></li>
+            </ul>
+      </div>
+          {{/if}}
+      </div>
     </nav>
 
 
     {{{body}}}
+    
     <!-- scripts -->
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
@@ -23,6 +32,5 @@
     <script src="/javascripts/models.js"></script>
     <script src="/javascripts/views.js"></script>
     <script src="/javascripts/main.js"></script>
-</body>
+  </body>
 </html>
-
