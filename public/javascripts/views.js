@@ -4,9 +4,9 @@ var Views = (function(){
 		render : function () {
 			var queryInput = '<div class="container"><input id="query" type="text" class="input-group">';
 			var cityInput = '<input id="city" type="text" class="input-group">';
-			var tableJobs = '<div class="container" id="tableTop"><div class="col-md-3">Job Title</div><div class="col-md-3">Company</div><div class="col-md-3">Date</div><div class="col-md-3">Location</div></div>'
 			var buttonSearch = '<button id="buttonSearch">Search</button>';
-			this.$el.html(queryInput + cityInput + tableJobs + buttonSearch);
+			var tableJobs = '<div class="container" id="tableTop"><div class="col-md-3">Job Title</div><div class="col-md-3">Company</div><div class="col-md-3">Date</div><div class="col-md-3">Location</div></div>';
+			this.$el.html(queryInput + cityInput + buttonSearch + tableJobs);
 
 			return this;
 		},

@@ -25,7 +25,7 @@ router.get('/request/:q/:city', function (req, res) {
 });
 
 // Application
-router.get('/', function(req, res) {
+router.get('/', requireSession, function(req, res) {
   console.log(req.session.user);
   console.log('test');
 
