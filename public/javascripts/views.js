@@ -2,11 +2,11 @@ var Views = (function(){
 
 	var NewSearchView = Backbone.View.extend({
 		render : function () {
-
-			var textInput = '<div class="container"><input id="query" type="text" class="input-group">';
-			var buttonSearch = '<button id="buttonSearch" class="fa fa-search fa-2x"></button></div>';
+			var queryInput = '<div class="container"><input id="query" type="text" class="input-group">';
+			var cityInput = '<input id="city" type="text" class="input-group">';
 			var tableJobs = '<div class="container" id="tableTop"><div class="col-md-3">Job Title</div><div class="col-md-3">Company</div><div class="col-md-3">Date</div><div class="col-md-3">Location</div></div>'
-			this.$el.html(textInput + buttonSearch + tableJobs);
+			var buttonSearch = '<button id="buttonSearch">Search</button>';
+			this.$el.html(queryInput + cityInput + tableJobs + buttonSearch);
 
 			return this;
 		},
@@ -14,9 +14,12 @@ var Views = (function(){
 			'click #buttonSearch' : 'displayResults'
 		},
 		displayResults : function () {
-			var searchResults = new app.Models.SearchResults(null, { query: $('#query').val() });
-			var searchResultsView = new SearchResultsView({ collection: searchResults });
-			$('#app').append(searchResultsView.render().$el);
+			app.searchResults = new app.Models.SearchResults(null, { query: $('#query').val(), city: $('#city').val() });
+			if (app.searchResultsView) {
+				app.searchResultsView.remove();
+			}
+			app.searchResultsView = new SearchResultsView({ collection: app.searchResults });
+			$('#app').append(app.searchResultsView.render().$el);
 		}
 	});
 

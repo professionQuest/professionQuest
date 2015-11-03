@@ -3,5 +3,5 @@ var app = {
 	Views : Views
 };
 
-var newSearch = new app.Views.NewSearchView();
-$('#app').append(newSearch.render().$el);
+app.newSearch = new app.Views.NewSearchView();
+$('#app').append(app.newSearch.render().$el);

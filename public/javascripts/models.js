@@ -9,7 +9,7 @@ var Models = (function(){
 		model : SearchResult,
 
 		initialize : function(models, options) {
-			this.url = '/request/' + options.query;
+			this.url = '/request/' + options.query + '/' + options.city;
 			this.fetch();
 		}
 	});
