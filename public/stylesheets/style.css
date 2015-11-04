@@ -54,19 +54,6 @@ body{
 	border-radius: 25px !important;
 	padding: 8px;
 }
-
-#query{
-	display: inline-block;
-	vertical-align: middle;
-	margin-bottom: 8px;
-}
-
-.logout{
-	float: right;
-	padding-right: 5px;
-}
-
-}
 /*input fields*/
 .input-group .form-control{
 	margin-bottom: 8px;
