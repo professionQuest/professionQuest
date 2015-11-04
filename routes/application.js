@@ -21,10 +21,10 @@ router.get('/request/:q/:city', function (req, res) {
 
   var finalResult = [];
 
-  var github = request('https://jobs.github.com/positions.json?search=code&page=1')
+  var github = request('https://jobs.github.com/positions.json?description=' + req.params.q + '&location=' + req.params.city)
     .then(parsingToJSON)
     .then(githubTransformation);
-  var dice = request('http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=' + req.params.q)
+  var dice = request('http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=' + req.params.q + '&city=' + req.params.city)
     .then(parsingToJSON)
     .then(diceTransformation);
 
@@ -45,7 +45,6 @@ router.get('/request/:q/:city', function (req, res) {
   }
 
   function diceTransformation(diceData){
-    console.log(diceData)
     return diceData.resultItemList.map(function(item){
       var posting = {
         title : item.jobTitle,
@@ -59,18 +58,18 @@ router.get('/request/:q/:city', function (req, res) {
 
   Promise.all([github, dice]).then(function(results) {
     for (var i = 0; i < results.length; i++) {
+      console.log(results[i]);
       finalResult = finalResult.concat(results[i]);
     }
+    return finalResult;
   }).then(function(data) {
-    res.send(finalResult);
+    res.send(data);
   });
 
 });
 
 // Application
 router.get('/', function(req, res) {
-  console.log(req.session.user);
-  // console.log('test');
 
   User.findOne({_id : req.session.user}, function(err, user) {
     if (err) {res.send(err)};
