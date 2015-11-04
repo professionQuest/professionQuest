@@ -17,8 +17,17 @@ function requireSession(req, res, next) {
 
 // Request
 
-router.get('/request/:q', function (req, res) {
-  
+router.get('/request/:q/:city', function (req, res) {
+
+  var finalResult = [];
+
+  var github = request('https://jobs.github.com/positions.json?search=code&page=1')
+    .then(parsingToJSON)
+    .then(githubTransformation);
+  var dice = request('http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=' + req.params.q)
+    .then(parsingToJSON)
+    .then(diceTransformation);
+
   function parsingToJSON(nonParsedData){
     return JSON.parse(nonParsedData)
   }
@@ -48,17 +57,14 @@ router.get('/request/:q', function (req, res) {
     })
   }
 
-  var github = request('https://jobs.github.com/positions.json?search=code&page=1')
-    .then(parsingToJSON)
-    .then(githubTransformation);
-  var dice = request('http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=' + req.params.q)
-    .then(parsingToJSON)
-    .then(diceTransformation);
-
   Promise.all([github, dice]).then(function(results) {
-    console.log("all the files were created");
-    console.log(results);
+    for (var i = 0; i < results.length; i++) {
+      finalResult = finalResult.concat(results[i]);
+    }
+  }).then(function(data) {
+    res.send(finalResult);
   });
+
 });
 
 // Application
