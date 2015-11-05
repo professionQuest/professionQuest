@@ -24,6 +24,7 @@ body{
 	position: absolute;
 	top: 100%;
 	display: none;
+	margin-top: -3.5px;
 	margin-right: 0;
 	list-style: none;
 	width: 100%;
@@ -33,15 +34,22 @@ body{
 .dropdown:hover .dropdown-menu{
 	display: block;
 }
+
 .dropdown a{
 	display: block;
 	padding: 0.2em 0.8em;
 	text-decoration: none;
 	background-color: #cccccc;
 	color: #333333;
+	
 }
 .dropdown a:hover{
 	background: #BBBBBB;
+
+}
+
+.fa{
+	padding-right: 100px;
 }
 
 /*main section all pages*/
@@ -100,7 +108,18 @@ body{
 #query{
 	margin-top: 5%;
 	margin-bottom: 5%;
-	line-height: 2;
-	width: 50%;
-
+	height: 2em;
+	width: 42.5%;
+}
+#city{
+	margin-top: 5%;
+	margin-bottom: 5%;
+	height: 2em;
+	width: 42.5%;
+}
+#buttonSearch{
+	margin-top: 5%;
+	width: 15%;
+	height: 2em;
+	color: #47c7ef
 }
