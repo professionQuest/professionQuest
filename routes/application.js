@@ -36,7 +36,8 @@ router.get('/request/:q/:city', function (req, res) {
         title : item.title,
         company : item.company,
         postDate : new Date(item.created_at).getTime() / 1000,
-        linkToSource : item.url
+        linkToSource : item.url,
+        location : location
       };
       return posting;
     })
@@ -48,7 +49,8 @@ router.get('/request/:q/:city', function (req, res) {
         title : item.jobTitle,
         company : item.company,
         postDate : new Date(item.date).getTime() / 1000,
-        linkToSource : item.detailUrl
+        linkToSource : item.detailUrl,
+        location : location
       };
       return posting;
     })
