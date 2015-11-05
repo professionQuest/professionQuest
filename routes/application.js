@@ -17,7 +17,7 @@ function requireSession(req, res, next) {
 
 // Request
 
-router.get('/request/:q/:city', function (req, res) {
+router.get('/request/:q/:city', requireSession, function (req, res) {
 
   var github = request('https://jobs.github.com/positions.json?description=' + req.params.q + '&location=' + req.params.city)
     .then(parsingToJSON)
@@ -37,7 +37,7 @@ router.get('/request/:q/:city', function (req, res) {
         company : item.company,
         postDate : new Date(item.created_at).getTime() / 1000,
         linkToSource : item.url,
-        location : location
+        location : item.location
       };
       return posting;
     })
@@ -50,7 +50,7 @@ router.get('/request/:q/:city', function (req, res) {
         company : item.company,
         postDate : new Date(item.date).getTime() / 1000,
         linkToSource : item.detailUrl,
-        location : location
+        location : item.location
       };
       return posting;
     })
@@ -72,11 +72,10 @@ router.get('/request/:q/:city', function (req, res) {
   }).then(function(newResult) {
     res.send(newResult);
   });;
-
 });
 
 // Application
-router.get('/', function(req, res) {
+router.get('/', requireSession, function(req, res) {
 
   User.findOne({_id : req.session.user}, function(err, user) {
     if (err) {res.send(err)};
