@@ -19,8 +19,6 @@ function requireSession(req, res, next) {
 
 router.get('/request/:q/:city', function (req, res) {
 
-  var finalResult = [];
-
   var github = request('https://jobs.github.com/positions.json?description=' + req.params.q + '&location=' + req.params.city)
     .then(parsingToJSON)
     .then(githubTransformation);
@@ -37,7 +35,7 @@ router.get('/request/:q/:city', function (req, res) {
       var posting = {
         title : item.title,
         company : item.company,
-        postDate : new Date(item.created_at),
+        postDate : new Date(item.created_at).getTime() / 1000,
         linkToSource : item.url
       };
       return posting;
@@ -49,7 +47,7 @@ router.get('/request/:q/:city', function (req, res) {
       var posting = {
         title : item.jobTitle,
         company : item.company,
-        postDate : new Date(item.date),
+        postDate : new Date(item.date).getTime() / 1000,
         linkToSource : item.detailUrl
       };
       return posting;
@@ -57,14 +55,22 @@ router.get('/request/:q/:city', function (req, res) {
   }
 
   Promise.all([github, dice]).then(function(results) {
+    var newResult = [];
+
     for (var i = 0; i < results.length; i++) {
       console.log(results[i]);
-      finalResult = finalResult.concat(results[i]);
+      newResult = newResult.concat(results[i]);
     }
-    return finalResult;
-  }).then(function(data) {
-    res.send(data);
-  });
+
+    return newResult;
+  }).then(function(newResult) {
+    var newResult = newResult.sort(function(a, b) {
+      return b.postDate - a.postDate;
+    });
+    return newResult;
+  }).then(function(newResult) {
+    res.send(newResult);
+  });;
 
 });
 
