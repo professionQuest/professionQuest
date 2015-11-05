@@ -20,7 +20,7 @@ body{
 	display: inline-block;
 	float: right;
 }
-.dropdown .dropdown-menu{
+.dropdown-menu{
 	position: absolute;
 	top: 100%;
 	display: none;
@@ -29,7 +29,7 @@ body{
 	list-style: none;
 	width: 100%;
 	padding: 0;
-
+	float: left;
 }
 .dropdown:hover .dropdown-menu{
 	display: block;
@@ -106,13 +106,13 @@ body{
 	font-weight: bold; 
 }
 #query{
-	margin-top: 5%;
+	margin-top: 100px;
 	margin-bottom: 5%;
 	height: 2em;
 	width: 42.5%;
 }
 #city{
-	margin-top: 5%;
+	margin-top: 100px;
 	margin-bottom: 5%;
 	height: 2em;
 	width: 42.5%;
