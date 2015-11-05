@@ -58,7 +58,7 @@ router.get('/request/:q/:city', function (req, res) {
     var newResult = [];
 
     for (var i = 0; i < results.length; i++) {
-      finalResult = finalResult.concat(results[i]);
+      newResult = newResult.concat(results[i]);
     }
 
     return newResult;
