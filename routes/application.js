@@ -58,7 +58,6 @@ router.get('/request/:q/:city', function (req, res) {
 
   Promise.all([github, dice]).then(function(results) {
     for (var i = 0; i < results.length; i++) {
-      console.log(results[i]);
       finalResult = finalResult.concat(results[i]);
     }
     return finalResult;
