@@ -1,10 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt');
+var Job = require('./job');
 
 var userSchema = new Schema({
   email: { type: String, required: true, index: { unique: true }, match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  job: [Job.schema]
 });
 
 userSchema.pre('save', function(next) {

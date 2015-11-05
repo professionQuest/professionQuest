@@ -41,7 +41,7 @@ body{
 	text-decoration: none;
 	background-color: #cccccc;
 	color: #333333;
-	
+
 }
 .dropdown a:hover{
 	background: #BBBBBB;
@@ -82,7 +82,7 @@ body{
 /*search display*/
 #tableTop{
 	background-color: #47c7ef;
-	font-weight: bold; 
+	font-weight: bold;
 	font-size: 20px;
 	width: 85%;
 	text-align: center;
@@ -103,7 +103,7 @@ body{
 }
 
 .company{
-	font-weight: bold; 
+	font-weight: bold;
 }
 #query{
 	margin-top: 5%;
@@ -112,7 +112,7 @@ body{
 	width: 42.5%;
 }
 #city{
-	margin-top: 5%;
+	margin-top: 100px;
 	margin-bottom: 5%;
 	height: 2em;
 	width: 42.5%;
