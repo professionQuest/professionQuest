@@ -31,9 +31,10 @@ var Views = (function(){
 			var convertedDate = new Date(this.model.get('postDate') * 1000);
 			var formattedDate =  convertedDate.getMonth() + '/' + convertedDate.getDate() + '/' + convertedDate.getFullYear();
 			var date = '<div class="col-md-3" class="date">' + formattedDate + '</div>';
-			var location = '<div class="col-md-3" class="location">' + this.model.get('location') + '</div></div>'
+			var location = '<div class="col-md-3" class="location">' + this.model.get('location') + '</div>'
+			var addButton = '<button id="addButton">+</div></div>'
 
-			this.$el.html(title + company + date + location);
+			this.$el.html(title + company + date + location + addButton);
 			return this;
 		}
 	});
