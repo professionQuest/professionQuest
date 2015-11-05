@@ -28,8 +28,9 @@ var Views = (function(){
 		render : function () {
 			var title = '<div class="container"><div class="col-md-3"><a href="' + this.model.get('linkToSource') + '" class="title">' + this.model.get('title') + '</a></div>';
 			var company = '<div class="col-md-3" class="company">' + this.model.get('company') + '</div>';
-			var date = '<div class="col-md-3" class="date">' + this.model.get('postDate') + '</div></div>';
-			//var link = '<a href="' + this.model.get('detailUrl') + '" target="_blank" class="link">' + this.model.get('detailUrl') + '</a>';
+			var convertedDate = new Date(this.model.get('postDate') * 1000);
+			var formattedDate =  convertedDate.getMonth() + '/' + convertedDate.getDate() + '/' + convertedDate.getFullYear();
+			var date = '<div class="col-md-3" class="date">' + formattedDate + '</div></div>';
 
 			this.$el.html(title + company + date);
 			return this;
