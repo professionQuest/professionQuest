@@ -12,9 +12,15 @@
         <a href="/login"> <img src="/images/logo.png" class="logo"style="width: auto; height: 100%"></a>
           {{#if session.user}}
       <div class="dropdown">
+<<<<<<< HEAD
       <ul class="nav navbar-nav navbar-right">
         <div></a><i class="fa fa-user fa-3x"></i></div>
             <ul class="dropdown-menu">
+=======
+        <div></a><i class="fa fa-user fa-4x"></i></div>
+            <ul class="dropdown-menu pull-left">
+              <li><a href="" id="jobsButton">Saved Jobs</a></li>
+>>>>>>> stephen
               <li><a href="/users/{{user._id}}/edit">Edit {{user.email}}</a></li>
               <li><a href="/">saved jobs</a></li>
               <li><a href="/logout">Logout</a></li>

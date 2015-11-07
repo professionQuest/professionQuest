@@ -34,6 +34,7 @@ var Views = (function(){
 			var location = '<div class="col-md-15" class="location">' + this.model.get('location') + '</div>'
 			var addButton = '<button id="addButton" class="submit">save job</button></div>'
 
+
 			this.$el.html(title + company + date + location + addButton);
 			return this;
 		}
@@ -52,6 +53,34 @@ var Views = (function(){
 		},
 		initialize : function() {
 			this.listenTo(this.collection, 'update', this.render);
+		}
+	});
+
+	var JobsView = Backbone.View.extend({
+		render : function () {
+			this.$el.html('');
+			this.collection.each(function(model) {
+				var result = new JobView({ model: model });
+				this.$el.append(result.render().$el);
+			}, this);
+
+			return this;
+		},
+		initialize : function() {
+			this.listenTo(this.collection, 'update', this.render);
+		}
+	});
+
+	var JobView = Backbone.View.extend({
+		render : function () {
+			var title = '<div class="container"><div class="col-md-3"><a target="_blank" href="' + this.model.get('linkToSource') + '" class="title">' + this.model.get('title') + '</a></div>';
+			var company = '<div class="col-md-3" class="company">' + this.model.get('company') + '</div>';
+			var date = '<div class="col-md-3" class="date">' + this.model.get('date') + '</div>';
+			var location = '<div class="col-md-3" class="location">' + this.model.get('location') + '</div>'
+			var deleteButton = '<button id="deleteButton">+</div></div>'
+
+			this.$el.html(title + company + date + location + deleteButton);
+			return this;
 		}
 	});
 

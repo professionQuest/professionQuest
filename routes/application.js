@@ -68,6 +68,7 @@ router.get('/request/:q/:city', requireSession, function (req, res) {
     var newResult = newResult.sort(function(a, b) {
       return b.postDate - a.postDate;
     });
+    
     return newResult;
   }).then(function(newResult) {
     res.send(newResult);
