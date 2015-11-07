@@ -3,8 +3,8 @@
   <head>
     <title>{{title}}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css'/>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
   </head>
   <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -12,9 +12,11 @@
         <a href="/login"> <img src="/images/logo.png" class="logo"style="width: auto; height: 100%"></a>
           {{#if session.user}}
       <div class="dropdown">
-        <div></a><i class="fa fa-user fa-4x"></i></div>
-            <ul class="dropdown-menu pull-left">
+      <ul class="nav navbar-nav navbar-right">
+        <div></a><i class="fa fa-user fa-3x"></i></div>
+            <ul class="dropdown-menu">
               <li><a href="/users/{{user._id}}/edit">Edit {{user.email}}</a></li>
+              <li><a href="/">saved jobs</a></li>
               <li><a href="/logout">Logout</a></li>
             </ul>
       </div>

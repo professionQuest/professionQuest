@@ -3,6 +3,7 @@ body{
 	background-repeat: no-repeat;
   background-position: right top;
   background-attachment: fixed;
+  font-family: Helvetica,Arial,sans-serif;
 }
 .navbar-default{
 	background-color: #47c7ef;
@@ -12,24 +13,25 @@ body{
 .logo{
 	position: absolute;
 	left: 0px;
-	margin-left: 1em;
+	margin-left: 2em;
 }
 /*user nav*/
 .dropdown{
 	position: relative;
 	display: inline-block;
 	float: right;
+
 }
 .dropdown-menu{
-	position: absolute;
+	position: relative;
 	top: 100%;
 	display: none;
-	margin-top: -3.5px;
+	margin-top:39px;
 	margin-right: 0;
 	list-style: none;
-	width: 100%;
+	width: auto;
 	padding: 0;
-	float: left;
+	float: inherit;
 }
 .dropdown:hover .dropdown-menu{
 	display: block;
@@ -37,20 +39,22 @@ body{
 
 .dropdown a{
 	display: block;
-	padding: 0.2em 0.8em;
 	text-decoration: none;
 	background-color: #cccccc;
 	color: #333333;
-
 }
+
 .dropdown a:hover{
 	background: #BBBBBB;
-
 }
+
 
 .fa{
-	padding-right: 100px;
+	position: absolute;
+	right: 0px;
+	margin-right: 2em;
 }
+
 
 /*main section all pages*/
 .jumbotron{
@@ -58,7 +62,7 @@ body{
 	color: white;
 	margin-top: 250px;
 	background: rgba(71, 199, 239, 0.90);
-	border: solid white;
+	/*border: solid white;*/
 	border-radius: 25px !important;
 	padding: 8px;
 }
@@ -71,31 +75,46 @@ body{
 }
 /*buttons*/
 .btn-group-lg.btn,.btn-lg{
-	border-radius: 300px;
-	margin-top: 8px;
-	width: 10em;
-	background-color: black;
-	color: white;
-	border: none;
-	position: none;
-}
-/*search display*/
-#tableTop{
-	background-color: #47c7ef;
-	font-weight: bold;
-	font-size: 20px;
-	width: 85%;
+	width: auto;
+	height: 2.5em;
+	color: #000;
+	background-color: #cccccc;
 	text-align: center;
 }
 
+.register{
+	color: black;
+}
+/*search display*/
+#tableTop{
+	font-weight: bold;
+	font-size: 20px;
+	width: 95%;
+	text-align: center;
+}
+
+.col-md-15{
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+@media (min-width: 992px) {
+    .col-md-15 {
+        width: 20%;
+        float: left;
+    }
+}
+
 .search-result{
-		background-color: white;
+		background-color: #f4f4f4;;
     background-color: #f5f5f5;
-    width: 85%;
+    width: 95%;
     margin: auto;
     font-size: 20px;
-    line-height: 20px;
+    line-height: 25px;
     padding: 8px;
+    text-align: center;
 }
 
 .search-result:hover{
@@ -111,15 +130,31 @@ body{
 	height: 2em;
 	width: 42.5%;
 }
+
 #city{
 	margin-top: 100px;
 	margin-bottom: 5%;
 	height: 2em;
 	width: 42.5%;
 }
+
+#location{
+	margin-top: 100px;
+	margin-bottom: 5%;
+	height: 2em;
+}
+
 #buttonSearch{
-	margin-top: 5%;
+	padding-left: 1px;
+	margin-top: 4.5%;
 	width: 15%;
 	height: 2em;
-	color: #47c7ef
+	color: black;
+	background-color: #47c7ef;
 }
+#addButton{
+	background-color: #47c7ef;
+}
+
+
+
