@@ -32,7 +32,7 @@ var Views = (function(){
 			var formattedDate =  convertedDate.getMonth() + '/' + convertedDate.getDate() + '/' + convertedDate.getFullYear();
 			var date = '<div class="col-md-3" class="date">' + formattedDate + '</div>';
 			var location = '<div class="col-md-3" class="location">' + this.model.get('location') + '</div>'
-			var addButton = '<button id="addButton">+</div></div>'
+			var addButton = '<button id="addButton">Save Job</div></div>'
 
 			this.$el.html(title + company + date + location + addButton);
 			return this;
