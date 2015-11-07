@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
-
 var application = require('./routes/application');
 var sessions = require('./routes/sessions');
 var users = require('./routes/users');
@@ -19,7 +18,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // database
-mongoose.connect('mongodb://localhost/professionQuest');
+// mongoose.connect('mongodb://localhost/professionQuest');
 
 // middleware
 app.use(logger('dev'));
