@@ -20,11 +20,10 @@ var Models = (function(){
 		model : Job,
 
 		initialize : function(models, options) {
-			this.url = '/' + options.userId + '/jobs';
+			this.url = '/users/' + options.userId + '/jobs';
 			this.fetch();
 		}
 	});
-
 
 	return {
 		SearchResult : SearchResult,
