@@ -1,10 +1,11 @@
 body{
 	background-image: url("../images/background.jpg");
 	background-repeat: no-repeat;
-  background-position: right top;
+  background-position: right; top;
   background-attachment: fixed;
   font-family: Helvetica,Arial,sans-serif;
 }
+
 .navbar-default{
 	background-color: #47c7ef;
 	height: 10%;
@@ -60,9 +61,8 @@ body{
 .jumbotron{
 	text-align: center;
 	color: white;
-	margin-top: 250px;
+	margin-top: 150px;
 	background: rgba(71, 199, 239, 0.90);
-	/*border: solid white;*/
 	border-radius: 25px !important;
 	padding: 8px;
 }
@@ -117,31 +117,31 @@ body{
     text-align: center;
 }
 
-.search-result:hover{
+.search-result:hover, .saved-result:hover{
 	background-color: #BBBBBB;
+}
+.saved-result{
+		background-color: #f4f4f4;;
+    background-color: #f5f5f5;
+    width: 95%;
+   	margin: auto;
+    font-size: 20px;
+    line-height: 25px;
+    padding: 8px;
+    text-align: center;
+}
+.trying{
+	margin-top: 100px!important;
 }
 
 .company{
 	font-weight: bold;
 }
-#query{
+#query, #city, #location{
 	margin-top: 100px;
 	margin-bottom: 5%;
 	height: 2em;
 	width: 42.5%;
-}
-
-#city{
-	margin-top: 100px;
-	margin-bottom: 5%;
-	height: 2em;
-	width: 42.5%;
-}
-
-#location{
-	margin-top: 100px;
-	margin-bottom: 5%;
-	height: 2em;
 }
 
 #buttonSearch{
@@ -152,9 +152,10 @@ body{
 	color: black;
 	background-color: #47c7ef;
 }
-#addButton{
+.saveButton, #deleteButton{
 	background-color: #47c7ef;
 }
+
 
 
 

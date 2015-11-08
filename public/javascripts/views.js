@@ -75,14 +75,15 @@ var Views = (function(){
 	});
 
 	var JobView = Backbone.View.extend({
+		className : 'saved-result',
 		render : function () {
-			var title = '<div class="container"><div class="col-md-3"><a target="_blank" href="' + this.model.get('linkToSource') + '" class="title">' + this.model.get('title') + '</a></div>';
-			var company = '<div class="col-md-3" class="company">' + this.model.get('company') + '</div>';
+			var title = '<div class="container" class"trying"><div class="col-md-15"><a target="_blank" href="' + this.model.get('linkToSource') + '" class="title">' + this.model.get('title') + '</a></div>';
+			var company = '<div class="col-md-15" class="company">' + this.model.get('company') + '</div>';
 			var convertedDate = new Date(this.model.get('postDate') * 1000);
 			var formattedDate =  (convertedDate.getMonth() + 1) + '/' + (convertedDate.getDate() + 1) + '/' + convertedDate.getFullYear();
 			var date = '<div class="col-md-15" class="date">' + formattedDate + '</div>';
-			var location = '<div class="col-md-3" class="location">' + this.model.get('location') + '</div>'
-			var deleteButton = '<button id="deleteButton">Delete</div></div>'
+			var location = '<div class="col-md-15" class="location">' + this.model.get('location') + '</div>'
+			var deleteButton = '<button id="deleteButton">Delete</button></div>'
 
 			this.$el.html(title + company + date + location + deleteButton);
 			return this;
