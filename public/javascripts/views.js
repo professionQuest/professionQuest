@@ -55,6 +55,8 @@ var Views = (function(){
 					location: this.model.get('location'),
 				}
 			});
+			this.model.destroy();
+			this.remove();
 		}
 	});
 
