@@ -2,8 +2,8 @@ var Views = (function(){
 
 	var NewSearchView = Backbone.View.extend({
 		render : function () {
-			var queryInput = '<div class="container" class="col-md-3"><input id="query" type="text" class="form-group" placeholder="Job Title" aria-describedby="sizing-addon1" value="javascript">';
-			var cityInput = '<input id="city" type="text" class="form-group" placeholder="City or zip code" aria-describedby="sizing-addon1" value="denver, co">';
+			var queryInput = '<div class="container" class="col-md-3"><input id="query" type="text" class="form-group" placeholder="Job Title" aria-describedby="sizing-addon1">';
+			var cityInput = '<input id="city" type="text" class="form-group" placeholder="City or zip code" aria-describedby="sizing-addon1">';
 			var buttonSearch = '<input id="buttonSearch" type="submit" class="form-group"></input></div>';
 			var tableJobs = '<div class="container" id="tableTop"><div class="col-sm-3"></div><div class="col-sm-3"></div><div class="col-sm-3"></div><div class="col-sm-3"></div></div>';
 			this.$el.html(queryInput + cityInput + buttonSearch + tableJobs);

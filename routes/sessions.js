@@ -7,7 +7,11 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 // Render Login Page
 router.get('/login', function(req, res) {
-  res.render('login', { title: 'Login' });
+  if (req.session.user) {
+    res.redirect('/#/')
+  } else {
+    res.render('login', { title: 'Login' });
+  }
 });
 
 // Login
