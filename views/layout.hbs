@@ -9,19 +9,22 @@
   <body>
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
-        <a href="/login"> <img src="/images/logo.png" class="logo"style="width: auto; height: 120%"></a>
+
           {{#if session.user}}
+          <a href="#/"> <img src="/images/logo.png" class="logo"style="width: auto; height: 120%"></a>
           <div class="dropdown">
             <ul class="nav navbar-nav navbar-right">
               <div></a><i class="fa fa-user fa-3x"></i></div>
               <ul class="dropdown-menu">
-                <li><a href="#/search">Search for Jobs</a></li>
+                <li><a href="#/">Search for Jobs</a></li>
                 <li><a href="#/saved-jobs" id="jobs-button">Saved Jobs</a></li>
                 <li><a href="/users/{{user._id}}/edit">Edit {{user.email}}</a></li>
                 <li><a href="/logout">Logout</a></li>
               </ul>
             </ul>
           </div>
+          {{else}}
+          <a href="/login"> <img src="/images/logo.png" class="logo"style="width: auto; height: 120%"></a>
           {{/if}}
       </div>
     </nav>
