@@ -9,7 +9,7 @@
   <body>
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
-        <a href="/login"> <img src="/images/logo.png" class="logo"style="width: auto; height: 100%"></a>
+        <a href="/login"> <img src="/images/logo.png" class="logo"style="width: auto; height: 120%"></a>
           {{#if session.user}}
           <div class="dropdown">
             <ul class="nav navbar-nav navbar-right">
@@ -25,14 +25,14 @@
       </div>
     </nav>
 
-
-    {{{body}}}
-
     {{#if session.user}}
     <input type="hidden" id="user-id" value="{{user._id}}">
+
     {{/if}}
 
-
+    <div style="padding-top: 100px;"></div>
+    {{{body}}}
+    <div style="padding-top: 25px;"></div>
     <!-- scripts -->
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
