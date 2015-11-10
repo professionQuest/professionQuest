@@ -28,7 +28,7 @@ body{
 	position: relative;
 	top: 100%;
 	display: none;
-	margin-top:39px;
+	margin-top:48px;
 	margin-right: 0;
 	list-style: none;
 	width: auto;
@@ -54,7 +54,8 @@ body{
 .fa{
 	position: absolute;
 	right: 0px;
-	margin-right: 2em;
+	margin-right: 1em;
+	margin-top: 10px;
 }
 
 
