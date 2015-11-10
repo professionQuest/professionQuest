@@ -61,11 +61,11 @@ body{
 .jumbotron{
 	text-align: center;
 	color: white;
-	margin-top: 150px;
 	background: rgba(71, 199, 239, 0.90);
 	border-radius: 25px !important;
-	padding: 8px;
+	padding: 3px;
 }
+
 /*input fields*/
 .input-group .form-control{
 	margin-bottom: 8px;
@@ -130,15 +130,11 @@ body{
     padding: 8px;
     text-align: center;
 }
-.trying{
-	margin-top: 100px!important;
-}
 
 .company{
 	font-weight: bold;
 }
 #query, #city, #location{
-	margin-top: 100px;
 	margin-bottom: 5%;
 	height: 2em;
 	width: 42.5%;
@@ -146,7 +142,6 @@ body{
 
 #buttonSearch{
 	padding-left: 1px;
-	margin-top: 4.5%;
 	width: 15%;
 	height: 2em;
 	color: black;

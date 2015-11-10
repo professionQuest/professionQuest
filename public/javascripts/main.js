@@ -21,6 +21,7 @@ app.router.on('route:search', function () {
 	}
 	app.newSearchView = new app.Views.NewSearchView();
 	$('#app').append(app.newSearchView.render().$el);
+
 });
 
 app.router.on('route:savedJobs', function () {
