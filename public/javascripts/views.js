@@ -101,7 +101,7 @@ var Views = (function(){
 
 	var JobsView = Backbone.View.extend({
 		render : function () {
-			this.$el.html('<h2>Saved Jobs</h2>');
+			this.$el.html('<h2 class="savedJob">Saved Jobs</h2>');
 			this.collection.each(function(model) {
 				var result = new JobView({ model: model });
 				this.$el.append(result.render().$el);

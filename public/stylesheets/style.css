@@ -147,10 +147,13 @@ body{
 	color: black;
 	background-color: #47c7ef;
 }
-.saveButton, #deleteButton{
+.saveButton, .deleteButton{
 	background-color: #47c7ef;
 }
-
+.savedJob{
+	text-align: center;
+	color: white;
+}
 
 
 
