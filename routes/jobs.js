@@ -50,7 +50,7 @@ router.post('/:id/jobs/new', requireUser, function(req, res) {
 
     user.save(function(err) {
       if (err) res.send(err);
-      // flash message for successfully saving job
+      res.send({});
     });
   });
 });

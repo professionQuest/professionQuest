@@ -1,6 +1,4 @@
 var Models = (function(){
-//[]search result
-//[]search results collection. Make url include variable to replace 'q'.
 	var SearchResult = Backbone.Model.extend({
 
 	});
@@ -14,8 +12,23 @@ var Models = (function(){
 		}
 	});
 
+	var Job = Backbone.Model.extend({
+		idAttribute: '_id'
+	});
+
+	var Jobs = Backbone.Collection.extend({
+		model : Job,
+
+		initialize : function(models, options) {
+			this.url = '/users/' + options.userId + '/jobs';
+			this.fetch();
+		}
+	});
+
 	return {
 		SearchResult : SearchResult,
-		SearchResults : SearchResults
+		SearchResults : SearchResults,
+		Job : Job,
+		Jobs : Jobs
 	};
 })();

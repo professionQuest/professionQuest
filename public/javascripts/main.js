@@ -3,5 +3,38 @@ var app = {
 	Views : Views
 };
 
-app.newSearch = new app.Views.NewSearchView();
-$('#app').append(app.newSearch.render().$el);
+app.Router = Backbone.Router.extend({
+    routes: {
+        '': 'search',
+				'saved-jobs': 'savedJobs'
+    }
+});
+// Initiate the router
+app.router = new app.Router;
+
+app.router.on('route:search', function () {
+	if (app.jobsView) {
+		app.jobsView.remove();
+	}
+	if (app.searchResultsView) {
+		app.searchResultsView.remove();
+	}
+	app.newSearchView = new app.Views.NewSearchView();
+	$('#app').append(app.newSearchView.render().$el);
+
+});
+
+app.router.on('route:savedJobs', function () {
+	if (app.newSearchView) {
+		app.newSearchView.remove();
+	}
+	if (app.searchResultsView) {
+		app.searchResultsView.remove();
+	}
+	app.jobs = new app.Models.Jobs( null, { userId: $('#user-id').val() });
+	app.jobsView = new app.Views.JobsView({ collection: app.jobs });
+	$('#app').append(app.jobsView.render().$el);
+});
+
+// Start Backbone history a necessary step for bookmarkable URL's
+Backbone.history.start();
