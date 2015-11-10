@@ -82,15 +82,23 @@ var Views = (function(){
 			var formattedDate =  (convertedDate.getMonth() + 1) + '/' + (convertedDate.getDate() + 1) + '/' + convertedDate.getFullYear();
 			var date = '<div class="col-md-15" class="date">' + formattedDate + '</div>';
 			var location = '<div class="col-md-3" class="location">' + this.model.get('location') + '</div>'
-			var deleteButton = '<button id="deleteButton">Delete</div></div>'
+			var deleteButton = '<button class="deleteButton">Delete</div></div>'
 
 			this.$el.html(title + company + date + location + deleteButton);
 			return this;
+		},
+		events: {
+			'click .deleteButton': 'deleteJob'
+		},
+		deleteJob: function() {
+			this.model.destroy();
+			this.remove();
 		}
 	});
 
 	var JobsView = Backbone.View.extend({
 		render : function () {
+			this.$el.html('<h2>Saved Jobs</h2>');
 			this.collection.each(function(model) {
 				var result = new JobView({ model: model });
 				this.$el.append(result.render().$el);

@@ -13,7 +13,7 @@ var Models = (function(){
 	});
 
 	var Job = Backbone.Model.extend({
-
+		idAttribute: '_id'
 	});
 
 	var Jobs = Backbone.Collection.extend({
