@@ -34,42 +34,54 @@ router.get('/request/:q/:city', requireSession, function (req, res) {
   }
 
   function usaJobsTransformation(usaJobsData){
-    return usaJobsData.JobData.map(function(item){
-      var posting = {
-        title : item.JobTitle,
-        company : item.OrganizationName,
-        postDate : new Date(item.StartDate).getTime() / 1000,
-        linkToSource : item.ApplyOnlineURL,
-        location : 'USA'
-      };
-      return posting;
-    })
+    if (usaJobsData.JobData) {
+      return usaJobsData.JobData.map(function(item){
+        var posting = {
+          title : item.JobTitle,
+          company : item.OrganizationName,
+          postDate : new Date(item.StartDate).getTime() / 1000,
+          linkToSource : item.ApplyOnlineURL,
+          location : 'USA'
+        };
+        return posting;
+      })
+    } else {
+      return [];
+    }
   }
 
   function githubTransformation(githubData){
-    return githubData.map(function(item){
-      var posting = {
-        title : item.title,
-        company : item.company,
-        postDate : new Date(item.created_at).getTime() / 1000,
-        linkToSource : item.url,
-        location : item.location
-      };
-      return posting;
-    })
+    if (githubData) {
+      return githubData.map(function(item){
+        var posting = {
+          title : item.title,
+          company : item.company,
+          postDate : new Date(item.created_at).getTime() / 1000,
+          linkToSource : item.url,
+          location : item.location
+        };
+        return posting;
+      })
+    } else {
+      return [];
+    }
   }
 
   function diceTransformation(diceData){
-    return diceData.resultItemList.map(function(item){
-      var posting = {
-        title : item.jobTitle,
-        company : item.company,
-        postDate : new Date(item.date).getTime() / 1000,
-        linkToSource : item.detailUrl,
-        location : item.location
-      };
-      return posting;
-    })
+    if (diceData.resultItemList) {
+      return diceData.resultItemList.map(function(item){
+        var posting = {
+          title : item.jobTitle,
+          company : item.company,
+          postDate : new Date(item.date).getTime() / 1000,
+          linkToSource : item.detailUrl,
+          location : item.location
+        };
+        return posting;
+      })
+    } else {
+      return [];
+    }
   }
 
   Promise.all([usaJobs, github, dice]).then(function(results) {
