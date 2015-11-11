@@ -19,6 +19,9 @@ function requireSession(req, res, next) {
 
 router.get('/request/:q/:city', requireSession, function (req, res) {
 
+  var usaJobs = request('https://data.usajobs.gov/api/jobs?keyword=' + req.params.q + '&locationID=' + req.params.city)
+    .then(parsingToJSON)
+    .then(usaJobsTransformation);
   var github = request('https://jobs.github.com/positions.json?description=' + req.params.q + '&location=' + req.params.city)
     .then(parsingToJSON)
     .then(githubTransformation);
@@ -28,6 +31,19 @@ router.get('/request/:q/:city', requireSession, function (req, res) {
 
   function parsingToJSON(nonParsedData){
     return JSON.parse(nonParsedData)
+  }
+
+  function usaJobsTransformation(usaJobsData){
+    return usaJobsData.JobData.map(function(item){
+      var posting = {
+        title : item.JobTitle,
+        company : item.OrganizationName,
+        postDate : new Date(item.StartDate).getTime() / 1000,
+        linkToSource : item.ApplyOnlineURL,
+        location : 'USA'
+      };
+      return posting;
+    })
   }
 
   function githubTransformation(githubData){
@@ -56,7 +72,7 @@ router.get('/request/:q/:city', requireSession, function (req, res) {
     })
   }
 
-  Promise.all([github, dice]).then(function(results) {
+  Promise.all([usaJobs, github, dice]).then(function(results) {
     var newResult = [];
 
     for (var i = 0; i < results.length; i++) {
@@ -68,7 +84,7 @@ router.get('/request/:q/:city', requireSession, function (req, res) {
     var newResult = newResult.sort(function(a, b) {
       return b.postDate - a.postDate;
     });
-    
+
     return newResult;
   }).then(function(newResult) {
     res.send(newResult);
