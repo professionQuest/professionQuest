@@ -19,6 +19,9 @@ function requireSession(req, res, next) {
 
 router.get('/request/:q/:city', requireSession, function (req, res) {
 
+  var usaJobs = request('https://data.usajobs.gov/api/jobs?keyword=' + req.params.q + '&locationID=' + req.params.city)
+    .then(parsingToJSON)
+    .then(usaJobsTransformation);
   var github = request('https://jobs.github.com/positions.json?description=' + req.params.q + '&location=' + req.params.city)
     .then(parsingToJSON)
     .then(githubTransformation);
@@ -30,33 +33,58 @@ router.get('/request/:q/:city', requireSession, function (req, res) {
     return JSON.parse(nonParsedData)
   }
 
+  function usaJobsTransformation(usaJobsData){
+    if (usaJobsData.JobData) {
+      return usaJobsData.JobData.map(function(item){
+        var posting = {
+          title : item.JobTitle,
+          company : item.OrganizationName,
+          postDate : new Date(item.StartDate).getTime() / 1000,
+          linkToSource : item.ApplyOnlineURL,
+          location : 'USA'
+        };
+        return posting;
+      })
+    } else {
+      return [];
+    }
+  }
+
   function githubTransformation(githubData){
-    return githubData.map(function(item){
-      var posting = {
-        title : item.title,
-        company : item.company,
-        postDate : new Date(item.created_at).getTime() / 1000,
-        linkToSource : item.url,
-        location : item.location
-      };
-      return posting;
-    })
+    if (githubData) {
+      return githubData.map(function(item){
+        var posting = {
+          title : item.title,
+          company : item.company,
+          postDate : new Date(item.created_at).getTime() / 1000,
+          linkToSource : item.url,
+          location : item.location
+        };
+        return posting;
+      })
+    } else {
+      return [];
+    }
   }
 
   function diceTransformation(diceData){
-    return diceData.resultItemList.map(function(item){
-      var posting = {
-        title : item.jobTitle,
-        company : item.company,
-        postDate : new Date(item.date).getTime() / 1000,
-        linkToSource : item.detailUrl,
-        location : item.location
-      };
-      return posting;
-    })
+    if (diceData.resultItemList) {
+      return diceData.resultItemList.map(function(item){
+        var posting = {
+          title : item.jobTitle,
+          company : item.company,
+          postDate : new Date(item.date).getTime() / 1000,
+          linkToSource : item.detailUrl,
+          location : item.location
+        };
+        return posting;
+      })
+    } else {
+      return [];
+    }
   }
 
-  Promise.all([github, dice]).then(function(results) {
+  Promise.all([usaJobs, github, dice]).then(function(results) {
     var newResult = [];
 
     for (var i = 0; i < results.length; i++) {
@@ -68,7 +96,7 @@ router.get('/request/:q/:city', requireSession, function (req, res) {
     var newResult = newResult.sort(function(a, b) {
       return b.postDate - a.postDate;
     });
-    
+
     return newResult;
   }).then(function(newResult) {
     res.send(newResult);
