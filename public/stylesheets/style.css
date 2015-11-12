@@ -17,6 +17,9 @@ body{
 	left: 0px;
 	margin-left: 2em;
 }
+h3{
+	line-height: 28px 
+}
 /*user nav*/
 .dropdown{
 	position: relative;
