@@ -13,7 +13,7 @@ var users = require('./routes/users');
 var jobs = require('./routes/jobs');
 
 var app = express();
-
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -37,7 +37,9 @@ app.use(function(req, res, next) {
   res.locals.session = req.session;
   next();
 });
+
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', application);
 app.use('/', sessions);
