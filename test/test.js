@@ -1,76 +1,93 @@
 var chai = require('chai');
 var expect = chai.expect;
+var request = require('supertest')
+var mongoose = require('mongoose');
+var jobs = require('../routes/jobs');
+
+var app = require('../app');
 
 // Routes
+describe('Routes', function() {
 
-describe('Application Routes', function() {
-  describe('#application', function() {
-    it('should send application page', function() {
-
-    });
+  before(function() {
+    // connect to mongoose
+    // start fake server
   });
-  describe('#request', function() {
-    it('should retrieve and send API data', function() {
 
+  describe('Application Routes', function() {
+
+    describe('#application', function() {
+      it('should send application page');
     });
-  });
-});
 
-describe('Jobs Routes', function() {
-  describe('#index', function() {
-    it('should send saved jobs for specific user', function() {
-
+    describe('#request', function() {
+      it('should retrieve and send API data');
     });
-  });
-  describe('#create', function() {
-    it('should add new job to database for specific user', function() {
 
+  });
+
+  describe('Jobs Routes', function() {
+
+    describe('#index', function() {
+      it('should send saved jobs for specific user');
     });
-  });
-  describe('#destroy', function() {
-    it('should remove specific job from database for specific user', function() {
 
+    describe('#create', function() {
+      it('should add new job to database for specific user');
     });
-  });
-});
 
-describe('Sessions Routes', function() {
-  describe('#login', function() {
-    it('should authenticate user and create session if credentials match', function() {
-
+    describe('#destroy', function() {
+      it('should remove specific job from database for specific user');
     });
-  });
-  describe('#logout', function() {
-    it('should delete user session', function() {
 
+  });
+
+  describe('Sessions Routes', function() {
+
+    describe('#render login', function() {
+      it('should send login page', function(done) {
+        request(app)
+          .get('/login')
+          .expect(200, done);
+      });
     });
-  });
-});
 
-describe('Users Routes', function() {
-  describe('#new', function() {
-    it('should send register user page', function() {
-
+    describe('#login', function() {
+      it('should authenticate user');
     });
-  });
-  describe('#create', function() {
-    it('should add new user to database', function() {
 
+    describe('#logout', function() {
+      it('should delete user session');
     });
-  });
-  describe('#edit', function() {
-    it('should send edit user page for specific user', function() {
 
-    });
   });
-  describe('#update', function() {
-    it('should update specific user in database', function() {
 
-    });
-  });
-  describe('#destroy', function() {
-    it('should delete specific user from database', function() {
+  describe('Users Routes', function() {
 
+    describe('#new', function() {
+      it('should send register user page', function(done) {
+        request(app)
+          .get('/users/register')
+          .expect(200, done);
+      });
     });
+
+    describe('#create', function() {
+      it('should add new user to database');
+    });
+
+    describe('#edit', function() {
+      it('should send edit user page for specific user');
+    });
+
+    describe('#update', function() {
+      it('should update specific user in database');
+    });
+
+    describe('#destroy', function() {
+      it('should delete specific user from database');
+    });
+
   });
+
 });
