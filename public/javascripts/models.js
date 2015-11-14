@@ -26,9 +26,9 @@ var Models = (function(){
 	});
 
 	return {
-		SearchResult : SearchResult,
-		SearchResults : SearchResults,
-		Job : Job,
-		Jobs : Jobs
+		SearchResult: SearchResult,
+		SearchResults: SearchResults,
+		Job: Job,
+		Jobs: Jobs
 	};
 })();

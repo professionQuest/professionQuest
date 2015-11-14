@@ -1,7 +1,7 @@
-var Views = (function(){
+var Views = (function() {
 
 	var NewSearchView = Backbone.View.extend({
-		render : function () {
+		render : function() {
 			var queryInput = '<div class="container" class="col-md-3"><input id="query" type="text" class="form-group" placeholder="Job Title" aria-describedby="sizing-addon1">';
 			var cityInput = '<input id="city" type="text" class="form-group" placeholder="Enter zip code" aria-describedby="sizing-addon1">';
 			var buttonSearch = '<input id="buttonSearch" type="submit" class="form-group"></input></div>';
@@ -13,7 +13,7 @@ var Views = (function(){
 		events : {
 			'click #buttonSearch' : 'displayResults'
 		},
-		displayResults : function () {
+		displayResults : function() {
 			app.searchResults = new app.Models.SearchResults(null, { query: $('#query').val(), city: $('#city').val() });
 			if (app.searchResultsView) {
 				app.searchResultsView.remove();
@@ -28,7 +28,7 @@ var Views = (function(){
 
 	var SearchResultView = Backbone.View.extend({
 		className : 'search-result',
-		render : function () {
+		render : function() {
 			var title = '<div class="container"><div class="col-md-15"><a target="_blank" href="' + this.model.get('linkToSource') + '" class="title">' + this.model.get('title') + '</a></div>';
 			var company = '<div class="col-md-15" class="company">' + this.model.get('company') + '</div>';
 			var convertedDate = new Date(this.model.get('postDate') * 1000);
@@ -62,7 +62,7 @@ var Views = (function(){
 
 	var SearchResultsView = Backbone.View.extend({
 		id : 'search-results',
-		render : function () {
+		render : function() {
 			this.$el.html('');
 			this.collection.each(function(model) {
 				var result = new SearchResultView({ model: model });
@@ -78,7 +78,7 @@ var Views = (function(){
 
 	var JobView = Backbone.View.extend({
 		className : 'saved-result',
-		render : function () {
+		render : function() {
 			var title = '<div class="container" class"trying"><div class="col-md-15"><a target="_blank" href="' + this.model.get('linkToSource') + '" class="title">' + this.model.get('title') + '</a></div>';
 			var company = '<div class="col-md-15" class="company">' + this.model.get('company') + '</div>';
 			var convertedDate = new Date(this.model.get('postDate') * 1000);
@@ -100,7 +100,7 @@ var Views = (function(){
 	});
 
 	var JobsView = Backbone.View.extend({
-		render : function () {
+		render : function() {
 			this.$el.html('<h2 class="savedJob">Saved Jobs</h2>');
 			this.collection.each(function(model) {
 				var result = new JobView({ model: model });
@@ -115,9 +115,9 @@ var Views = (function(){
 	});
 
 	return {
-		NewSearchView : NewSearchView,
-		SearchResultView : SearchResultView,
-		SearchResultsView : SearchResultsView,
+		NewSearchView: NewSearchView,
+		SearchResultView: SearchResultView,
+		SearchResultsView: SearchResultsView,
 		JobView: JobView,
 		JobsView: JobsView
 	};

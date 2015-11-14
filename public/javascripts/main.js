@@ -4,15 +4,15 @@ var app = {
 };
 
 app.Router = Backbone.Router.extend({
-    routes: {
-        '': 'search',
-				'saved-jobs': 'savedJobs'
-    }
+  routes: {
+    '': 'search',
+		'saved-jobs': 'savedJobs'
+  }
 });
 // Initiate the router
 app.router = new app.Router;
 
-app.router.on('route:search', function () {
+app.router.on('route:search', function() {
 	if (app.jobsView) {
 		app.jobsView.remove();
 	}
@@ -21,10 +21,9 @@ app.router.on('route:search', function () {
 	}
 	app.newSearchView = new app.Views.NewSearchView();
 	$('#app').append(app.newSearchView.render().$el);
-
 });
 
-app.router.on('route:savedJobs', function () {
+app.router.on('route:savedJobs', function() {
 	if (app.newSearchView) {
 		app.newSearchView.remove();
 	}
