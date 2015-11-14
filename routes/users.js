@@ -6,15 +6,17 @@ var methodOverride = require('method-override');
 
 router.use(bodyParser.urlencoded({ extended: false }));
 
-router.use(methodOverride(function(req, res){
+// update appropriate methods from html
+router.use(methodOverride(function(req, res) {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
     // look in urlencoded POST bodies and delete it
     var method = req.body._method
     delete req.body._method
     return method
   }
-}))
+}));
 
+// require a specific user to be logged in
 function requireUser(req, res, next) {
   if (req.session.user !== req.params.id) {
     req.flash('alert', 'Not Authorized');
@@ -24,12 +26,12 @@ function requireUser(req, res, next) {
   }
 }
 
-// Render Register Page
+// new
 router.get('/register', function(req, res) {
   res.render('register', { title: 'Register' });
 });
 
-// Create User
+// create
 router.post('/', function(req, res) {
   User.findOne({email : req.body.email}, function(err, user) {
     if (!user) {
@@ -55,42 +57,35 @@ router.post('/', function(req, res) {
   });
 });
 
-// Render Edit User Page
+// edit
 router.get('/:id/edit', requireUser, function(req, res) {
   User.findOne({_id : req.params.id}, function(err, user) {
     if (err) {res.send(err)};
     res.render('edit-user', { title: 'Edit User', user:user });
-  })
+  });
 });
 
-//Edit User
+// update
 router.put('/:id/edit', requireUser, function(req, res) {
   User.findOne({_id : req.params.id}, function(err, user) {
     if (err) {res.send(err)};
 
-    if (req.body.password !== req.body.confirmation)
-    {
+    if (req.body.password !== req.body.confirmation) {
       req.flash('alert', 'Passwords must match');
       res.redirect('/users/' + req.params.id + '/edit');
-    }
-    else
-    {
-      if(req.body.password === '')
-      {
+    } else {
+      if (req.body.password === '') {
         delete req.body.password;
       }
-      for (var key in req.body)
-      {
+      for (var key in req.body) {
         user[key] = req.body[key];
-      };
-      user.save(function(err)
-        {
-          if (err) res.send(err);
-          res.redirect('/');
-        }
-      );
+      }
+      user.save(function(err) {
+        if (err) res.send(err);
+        res.redirect('/');
+      });
     }
-  })
+  });
 });
 
 module.exports = router;

@@ -7,6 +7,7 @@ var Promise = require("bluebird");
 
 router.use(bodyParser.urlencoded({ extended: false }));
 
+// require a user to be logged in
 function requireSession(req, res, next) {
   if (!req.session.user) {
     req.flash('alert', 'Not Authorized');
@@ -18,7 +19,7 @@ function requireSession(req, res, next) {
 
 // Request
 
-router.get('/request/:q/:city', requireSession, function (req, res) {
+router.get('/request/:q/:city', requireSession, function(req, res) {
 
   var usaJobs = request('https://data.usajobs.gov/api/jobs?keyword=' + req.params.q + '&locationID=' + req.params.city)
     .then(parsingToJSON)
@@ -30,13 +31,13 @@ router.get('/request/:q/:city', requireSession, function (req, res) {
     .then(parsingToJSON)
     .then(diceTransformation);
 
-  function parsingToJSON(nonParsedData){
+  function parsingToJSON(nonParsedData) {
     return JSON.parse(nonParsedData)
   }
 
-  function usaJobsTransformation(usaJobsData){
+  function usaJobsTransformation(usaJobsData) {
     if (usaJobsData.JobData) {
-      return usaJobsData.JobData.map(function(item){
+      return usaJobsData.JobData.map(function(item) {
         var posting = {
           title : item.JobTitle,
           company : item.OrganizationName,
@@ -51,9 +52,9 @@ router.get('/request/:q/:city', requireSession, function (req, res) {
     }
   }
 
-  function githubTransformation(githubData){
+  function githubTransformation(githubData) {
     if (githubData) {
-      return githubData.map(function(item){
+      return githubData.map(function(item) {
         var posting = {
           title : item.title,
           company : item.company,
@@ -68,9 +69,9 @@ router.get('/request/:q/:city', requireSession, function (req, res) {
     }
   }
 
-  function diceTransformation(diceData){
+  function diceTransformation(diceData) {
     if (diceData.resultItemList) {
-      return diceData.resultItemList.map(function(item){
+      return diceData.resultItemList.map(function(item) {
         var posting = {
           title : item.jobTitle,
           company : item.company,

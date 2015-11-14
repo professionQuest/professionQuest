@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 
 router.use(bodyParser.urlencoded({ extended: false }));
 
-// Render Login Page
+// render login page
 router.get('/login', function(req, res) {
   if (req.session.user) {
     res.redirect('/#/')
@@ -14,7 +14,7 @@ router.get('/login', function(req, res) {
   }
 });
 
-// Login
+// login
 router.post('/login', function(req, res) {
   User.findOne({ email: req.body.email }, function(err, user) {
     if (err) res.send(err);
@@ -44,7 +44,7 @@ router.post('/login', function(req, res) {
   });
 });
 
-// Logout
+// logout
 router.get('/logout', function(req, res) {
   req.session.destroy(function(err) {
     if (err) res.send(err);
