@@ -9,8 +9,7 @@
   <body>
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
-
-          {{#if session.user}}
+        {{#if session.user}}
           <a href="/#/"> <img src="/images/logo.png" class="logo"style="width: auto; height: 120%"></a>
           <div class="dropdown">
             <ul class="nav navbar-nav navbar-right">
@@ -23,25 +22,26 @@
               </ul>
             </ul>
           </div>
-          {{else}}
+        {{else}}
           <a href="/login"> <img src="/images/logo.png" class="logo"style="width: auto; height: 120%"></a>
-          {{/if}}
+        {{/if}}
       </div>
     </nav>
 
     {{#if session.user}}
-    <input type="hidden" id="user-id" value="{{user._id}}">
-
+      <input type="hidden" id="user-id" value="{{user._id}}">
     {{/if}}
 
-    <div style="padding-top: 100px;"></div>
+    {{#if alert}}
     <div class="messages">
-      {{#if alert}}
-        {{alert}}
-      {{/if}}
+        <p>{{alert}}</p>
     </div>
-    {{{body}}}
-    <div style="padding-top: 25px;"></div>
+    {{/if}}
+    
+    <div class="main-content">
+      {{{body}}}
+    </div>
+
     <!-- scripts -->
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
