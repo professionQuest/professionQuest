@@ -144,9 +144,13 @@ body{
 	height: 2em;
 	color: black;
 	background-color: #47c7ef;
+	border: 2px #47c7ef solid;
+	border-radius: 0 2px 2px 0;
 }
 .saveButton, .deleteButton{
 	background-color: #47c7ef;
+	border: 2px #47c7ef solid;
+	border-radius: 2px;
 }
 .savedJob{
 	text-align: center;
