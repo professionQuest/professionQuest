@@ -9,10 +9,9 @@ var app = require('../app');
 // Routes
 describe('Routes', function() {
 
-  before(function() {
-    // connect to mongoose
-    // start fake server
-  });
+  // before(function() {
+  //   mongoose.connect('localhost/professionQuest');
+  // });
 
   describe('Application Routes', function() {
 
