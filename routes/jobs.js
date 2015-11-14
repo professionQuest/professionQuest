@@ -17,7 +17,7 @@ router.use(methodOverride(function(req, res){
 
 function requireUser(req, res, next) {
   if (req.session.user !== req.params.id) {
-    console.log('Not authorized');
+    req.flash('alert', 'Not Authorized');
     res.redirect('/');
   } else {
     next();

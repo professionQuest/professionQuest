@@ -9,6 +9,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 function requireSession(req, res, next) {
   if (!req.session.user) {
+    req.flash('alert', 'Not Authorized');
     res.redirect('/login');
   } else {
     next();

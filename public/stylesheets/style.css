@@ -156,5 +156,8 @@ body{
 	color: white;
 }
 
-
-
+.messages {
+	text-align: center;
+	color: red;
+	font-weight: bold;
+}

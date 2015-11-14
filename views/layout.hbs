@@ -35,6 +35,11 @@
     {{/if}}
 
     <div style="padding-top: 100px;"></div>
+    <div class="messages">
+      {{#if alert}}
+        {{alert}}
+      {{/if}}
+    </div>
     {{{body}}}
     <div style="padding-top: 25px;"></div>
     <!-- scripts -->

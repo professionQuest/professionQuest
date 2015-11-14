@@ -21,7 +21,7 @@ router.post('/login', function(req, res) {
 
     if (user === null) {
       // if user does not exist
-      console.log('Wrong username');
+      req.flash('alert', 'Wrong username or password');
       res.redirect('/login');
     } else {
       // check to see if passwords match (method found in user model)
@@ -32,12 +32,11 @@ router.post('/login', function(req, res) {
 
         if (isMatch) {
           req.session.user = user._id;
-          console.log('Logged In');
           res.redirect('/');
         }
 
         if (!isMatch) {
-          console.log('Wrong password');
+          req.flash('alert', 'Wrong username or password');
           res.redirect('/login');
         }
       });

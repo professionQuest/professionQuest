@@ -17,7 +17,7 @@ router.use(methodOverride(function(req, res){
 
 function requireUser(req, res, next) {
   if (req.session.user !== req.params.id) {
-    console.log('Not authorized');
+    req.flash('alert', 'Not Authorized');
     res.redirect('/');
   } else {
     next();
@@ -34,7 +34,7 @@ router.post('/', function(req, res) {
   User.findOne({email : req.body.email}, function(err, user) {
     if (!user) {
       if (req.body.password !== req.body.confirmation) {
-        console.log('Passwords must match');
+        req.flash('alert', 'Passwords must match');
         res.redirect('/users/register');
       } else {
         var user = new User({
@@ -49,7 +49,7 @@ router.post('/', function(req, res) {
         });
       }
     } else {
-      console.log('Username exists');
+      req.flash('alert', 'That username exists, try another');
       res.redirect('/users/register');
     }
   });
@@ -70,7 +70,7 @@ router.put('/:id/edit', requireUser, function(req, res) {
 
     if (req.body.password !== req.body.confirmation)
     {
-      console.log('Passwords must match');
+      req.flash('alert', 'Passwords must match');
       res.redirect('/users/' + req.params.id + '/edit');
     }
     else
@@ -86,7 +86,6 @@ router.put('/:id/edit', requireUser, function(req, res) {
       user.save(function(err)
         {
           if (err) res.send(err);
-          console.log('user changed successfully');
           res.redirect('/');
         }
       );

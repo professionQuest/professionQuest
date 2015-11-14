@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
+var flash = require('connect-flash');
 
 var application = require('./routes/application');
 var sessions = require('./routes/sessions');
@@ -13,6 +14,7 @@ var users = require('./routes/users');
 var jobs = require('./routes/jobs');
 
 var app = express();
+
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,8 +34,11 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+app.use(flash());
 app.use(function(req, res, next) {
   // set session and flash info to locals
+  res.locals.alert = req.flash('alert');
+  res.locals.notice = req.flash('notice');
   res.locals.session = req.session;
   next();
 });
