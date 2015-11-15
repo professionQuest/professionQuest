@@ -1,17 +1,111 @@
 var chai = require('chai');
 var expect = chai.expect;
-var request = require('supertest')
+var should = chai.should;
+var request = require('supertest');
 var mongoose = require('mongoose');
 var jobs = require('../routes/jobs');
+var User = require('../models/user');
 
-var app = require('../app');
 
 // Routes
 describe('Routes', function() {
+  var url = 'http://localhost:3000'
 
-  // before(function() {
-  //   mongoose.connect('localhost/professionQuest');
-  // });
+  before(function(done) {
+    mongoose.connect('mongodb://localhost/professionQuest');
+    connection = mongoose.connection;
+
+    var user = new User({
+      email: 'david@test.com',
+      password: '123',
+      jobs: []
+    });
+
+    user.save(function(err) {
+      if (err) console.log(err);
+
+    });
+    done();
+  });
+
+  after(function(done) {
+    connection.db.dropDatabase();
+    connection.close();
+    done();
+  })
+
+  describe('Sessions Routes', function() {
+
+    describe('#render login', function() {
+      it('should send login page', function(done) {
+        request(url)
+          .get('/login')
+          .expect(200, done);
+      });
+    });
+
+    describe('#login', function() {
+      var credentials = {
+        email: 'david@test.com',
+        password: '123'
+      };
+
+      it('should authenticate user', function(done) {
+        request(url)
+          .post('/login')
+          .send(credentials)
+          .expect(302, done);
+      });
+    });
+
+    describe('#logout', function() {
+      it('should delete user session', function(done) {
+        request(url)
+          .get('/logout')
+          .expect(302, done);
+      });
+    });
+
+  });
+
+  describe('Users Routes', function() {
+
+    describe('#new', function() {
+      it('should send register user page', function(done) {
+        request(url)
+          .get('/users/register')
+          .expect(200, done);
+      });
+    });
+
+    describe('#create', function() {
+
+      it('should add new user to database', function(done) {
+        var profile = {
+          email: 'test@test.com',
+          password: 'test'
+        }
+
+        request(url)
+          .post('/users')
+          .send(profile)
+          .expect(200, done)
+      });
+    });
+
+    describe('#edit', function() {
+      it('should send edit user page for specific user');
+    });
+
+    describe('#update', function() {
+      it('should update specific user in database');
+    });
+
+    describe('#destroy', function() {
+      it('should delete specific user from database');
+    });
+
+  });
 
   describe('Application Routes', function() {
 
@@ -37,54 +131,6 @@ describe('Routes', function() {
 
     describe('#destroy', function() {
       it('should remove specific job from database for specific user');
-    });
-
-  });
-
-  describe('Sessions Routes', function() {
-
-    describe('#render login', function() {
-      it('should send login page', function(done) {
-        request(app)
-          .get('/login')
-          .expect(200, done);
-      });
-    });
-
-    describe('#login', function() {
-      it('should authenticate user');
-    });
-
-    describe('#logout', function() {
-      it('should delete user session');
-    });
-
-  });
-
-  describe('Users Routes', function() {
-
-    describe('#new', function() {
-      it('should send register user page', function(done) {
-        request(app)
-          .get('/users/register')
-          .expect(200, done);
-      });
-    });
-
-    describe('#create', function() {
-      it('should add new user to database');
-    });
-
-    describe('#edit', function() {
-      it('should send edit user page for specific user');
-    });
-
-    describe('#update', function() {
-      it('should update specific user in database');
-    });
-
-    describe('#destroy', function() {
-      it('should delete specific user from database');
     });
 
   });

@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
+    "mockgoose": "^4.0.2",
     "supertest": "^1.1.0"
   }
 }
