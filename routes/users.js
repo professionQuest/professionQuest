@@ -45,7 +45,7 @@ router.post('/', function(req, res) {
         });
 
         user.save(function(err) {
-          if (err) res.send(err);
+          if (err) return res.send(err);
 
           res.redirect('/login');
         });

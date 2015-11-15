@@ -17,8 +17,16 @@ function requireSession(req, res, next) {
   }
 }
 
-// Request
+// application
+router.get('/', requireSession, function(req, res) {
 
+  User.findOne({_id : req.session.user}, function(err, user) {
+    if (err) {res.send(err)};
+    res.render('index', { title: 'Profession Quest' , user : user });
+  })
+});
+
+// request
 router.get('/request/:q/:city', requireSession, function(req, res) {
 
   var usaJobs = request('https://data.usajobs.gov/api/jobs?keyword=' + req.params.q + '&locationID=' + req.params.city)
@@ -103,15 +111,6 @@ router.get('/request/:q/:city', requireSession, function(req, res) {
   }).then(function(newResult) {
     res.send(newResult);
   });;
-});
-
-// Application
-router.get('/', requireSession, function(req, res) {
-
-  User.findOne({_id : req.session.user}, function(err, user) {
-    if (err) {res.send(err)};
-    res.render('index', { title: 'Profession Quest' , user : user });
-  })
 });
 
 
