@@ -1,23 +1,24 @@
 var chai = require('chai');
 var expect = chai.expect;
-var request = require('supertest');
+var request = require('supertest-session');
 var mongoose = require('mongoose');
 var jobs = require('../routes/jobs');
 var User = require('../models/user');
+var app = require('../app');
 
 // Routes
 describe('Routes', function() {
-  var url = 'http://localhost:3000'
   var testUserId;
   var testJobId;
+  var connection;
+  var TEST_EMAIL = 'david@test.com';
 
   before(function(done) {
 
-    mongoose.connect('mongodb://localhost/professionQuest');
-    connection = mongoose.connection;
+    connection = mongoose.createConnection('mongodb://localhost/professionQuest');
 
     var user = new User({
-      email: 'david@test.com',
+      email: TEST_EMAIL,
       password: '123',
       jobs: []
     });
@@ -51,7 +52,7 @@ describe('Routes', function() {
 
     describe('#render login', function() {
       it('should send login page', function(done) {
-        request(url)
+        request(app)
           .get('/login')
           .expect(200, done);
       });
@@ -64,7 +65,7 @@ describe('Routes', function() {
       };
 
       it('should authenticate user', function(done) {
-        request(url)
+        request(app)
           .post('/login')
           .send(credentials)
           .expect(302, done);
@@ -73,7 +74,7 @@ describe('Routes', function() {
 
     describe('#logout', function() {
       it('should delete user session', function(done) {
-        request(url)
+        request(app)
           .get('/logout')
           .expect(302, done);
       });
@@ -85,7 +86,7 @@ describe('Routes', function() {
 
     describe('#new', function() {
       it('should send register user page', function(done) {
-        request(url)
+        request(app)
           .get('/users/register')
           .expect(200, done);
       });
@@ -99,7 +100,7 @@ describe('Routes', function() {
           password: 'test'
         }
 
-        request(url)
+        request(app)
           .post('/users')
           .send(profile)
           .expect(200, done);
@@ -108,7 +109,7 @@ describe('Routes', function() {
 
     describe('#edit', function() {
       it('should send edit user page for specific user', function(done) {
-        request(url)
+        request(app)
           .get('/users/' + testUserId + '/edit')
           .expect(302, done);
       });
@@ -120,7 +121,7 @@ describe('Routes', function() {
           email: 'update@test.com'
         }
 
-        request(url)
+        request(app)
           .put('/users/' + testUserId + '/edit')
           .send(email)
           .expect(302, done);
@@ -132,7 +133,7 @@ describe('Routes', function() {
 
     describe('#application', function() {
       it('should send application page', function(done) {
-        request(url)
+        request(app)
           .get('/')
           .expect(302, done);
       });
@@ -140,7 +141,7 @@ describe('Routes', function() {
 
     describe('#request', function() {
       it('should retrieve and send API data', function(done) {
-        request(url)
+        request(app)
           .get('/request/java/portland')
           .expect(302, done);
       });
@@ -152,7 +153,7 @@ describe('Routes', function() {
 
     describe('#index', function() {
       it('should send saved jobs for specific user', function(done) {
-        request(url)
+        request(app)
           .get('/users/' + testUserId + '/jobs')
           .expect(302, done);
       });
@@ -168,7 +169,7 @@ describe('Routes', function() {
           location: 'Portland, OR'
         }
 
-        request(url)
+        request(app)
           .post('/users/' + testUserId + '/jobs/new')
           .send(job)
           .expect(302, done);
@@ -177,7 +178,7 @@ describe('Routes', function() {
 
     describe('#destroy', function() {
       it('should remove specific job from database for specific user', function(done) {
-        request(url)
+        request(app)
           .delete('/users/' + testUserId + '/jobs/' + testJobId)
           .expect(302, done);
       });

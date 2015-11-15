@@ -21,7 +21,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // database
-mongoose.connect(process.env.DBURL);
+if (app.get('env') === 'development') {
+  mongoose.connect('mongodb://localhost/professionQuest');
+} else {
+  mongoose.connect(process.env.DBURL);
+}
 
 
 // middleware
