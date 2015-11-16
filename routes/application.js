@@ -21,7 +21,7 @@ function requireSession(req, res, next) {
 router.get('/', requireSession, function(req, res) {
 
   User.findOne({_id : req.session.user}, function(err, user) {
-    if (err) {res.send(err)};
+    if (err) return res.send(err);
     res.render('index', { title: 'Profession Quest' , user : user });
   })
 });
@@ -100,17 +100,18 @@ router.get('/request/:q/:city', requireSession, function(req, res) {
     for (var i = 0; i < results.length; i++) {
       newResult = newResult.concat(results[i]);
     }
-
     return newResult;
+
   }).then(function(newResult) {
     var newResult = newResult.sort(function(a, b) {
       return b.postDate - a.postDate;
     });
-
     return newResult;
+
   }).then(function(newResult) {
     res.send(newResult);
-  });;
+  });
+
 });
 
 

@@ -9,7 +9,8 @@ app.Router = Backbone.Router.extend({
 		'saved-jobs': 'savedJobs'
   }
 });
-// Initiate the router
+
+// initialize the the router
 app.router = new app.Router;
 
 app.router.on('route:search', function() {
@@ -35,5 +36,5 @@ app.router.on('route:savedJobs', function() {
 	$('#app').append(app.jobsView.render().$el);
 });
 
-// Start Backbone history a necessary step for bookmarkable URL's
+// start Backbone history for forward and backward navigation
 Backbone.history.start();

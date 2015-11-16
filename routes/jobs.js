@@ -29,7 +29,7 @@ function requireUser(req, res, next) {
 // index
 router.get('/:id/jobs', requireUser, function(req, res) {
   User.findOne({ _id: req.params.id }, function(err, user) {
-    if (err) res.send(err);
+    if (err) return res.send(err);
 
     res.send(user.jobs);
   });
@@ -38,7 +38,7 @@ router.get('/:id/jobs', requireUser, function(req, res) {
 // new
 router.post('/:id/jobs/new', requireUser, function(req, res) {
   User.findOne({ _id: req.params.id }, function(err, user) {
-    if (err) res.send(err);
+    if (err) return res.send(err);
 
     var job = {
       title: req.body.title,
@@ -51,7 +51,8 @@ router.post('/:id/jobs/new', requireUser, function(req, res) {
     user.jobs.push(job);
 
     user.save(function(err) {
-      if (err) res.send(err);
+      if (err) return res.send(err);
+      
       res.send({});
     });
   });
@@ -60,12 +61,14 @@ router.post('/:id/jobs/new', requireUser, function(req, res) {
 // destroy
 router.delete('/:id/jobs/:jobId', requireUser, function(req, res) {
   User.findOne({ _id: req.params.id }, function(err, user) {
-    if (err) res.send(err);
+    if (err) return res.send(err);
 
     user.jobs.id(req.params.jobId).remove();
 
     user.save(function(err) {
-      if (err) res.send(err);
+      if (err) return res.send(err);
+
+      res.send({});
     });
   });
 });

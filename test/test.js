@@ -12,20 +12,26 @@ describe('Routes', function() {
   var testJobId;
   var connection;
   var TEST_EMAIL = 'david@test.com';
+  var TEST_PASSWORD = '123';
   var credentials = {
     email: TEST_EMAIL,
-    password: '123'
+    password: TEST_PASSWORD
+  };
+
+  var createSession = function(done) {
+    user = request(app);
+    user
+      .post('/login')
+      .type('form')
+      .send(credentials)
+      .expect(302, done);
   };
 
   before(function(done) {
 
     connection = mongoose.createConnection('mongodb://localhost/professionQuest');
 
-    var user = new User({
-      email: TEST_EMAIL,
-      password: '123',
-      jobs: []
-    });
+    var user = new User(credentials);
 
     var job = {
       title: 'job',
@@ -40,13 +46,14 @@ describe('Routes', function() {
     user.save(function(err, user) {
       if (err) return done(err);
       testUserId = user._id;
-      testJobId = user.jobs[0]._id
+      testJobId = user.jobs[0]._id;
       done();
     });
 
   });
 
   after(function(done) {
+    // drop db and close connection
     connection.db.dropDatabase();
     connection.close();
     done();
@@ -64,8 +71,8 @@ describe('Routes', function() {
 
     describe('#login', function() {
       var credentials = {
-        email: 'david@test.com',
-        password: '123'
+        email: TEST_EMAIL,
+        password: TEST_PASSWORD
       };
 
       it('should authenticate user', function(done) {
@@ -78,15 +85,7 @@ describe('Routes', function() {
 
     describe('#logout', function() {
 
-      var user;
-
-      beforeEach(function(done) {
-        user = request(app);
-        user
-          .post('/login')
-          .send(credentials)
-          .expect(302, done);
-      });
+      beforeEach(createSession);
 
       it('should delete user session', function(done) {
         user
@@ -123,17 +122,8 @@ describe('Routes', function() {
     });
 
     describe('#edit', function() {
-      var user;
 
-      beforeEach(function(done) {
-        console.log(credentials);
-        user = request(app);
-        user
-          .post('/login')
-          .type('form')
-          .send(credentials)
-          .expect(302, done);
-      });
+      beforeEach(createSession);
 
       it('should send edit user page for specific user', function(done) {
         user
@@ -143,12 +133,15 @@ describe('Routes', function() {
     });
 
     describe('#update', function() {
+
+      beforeEach(createSession);
+
       it('should update specific user in database', function(done) {
         var email = {
           email: 'update@test.com'
-        }
+        };
 
-        request(app)
+        user
           .put('/users/' + testUserId + '/edit')
           .send(email)
           .expect(302, done);
@@ -159,18 +152,24 @@ describe('Routes', function() {
   describe('Application Routes', function() {
 
     describe('#application', function() {
+
+      beforeEach(createSession);
+
       it('should send application page', function(done) {
-        request(app)
+        user
           .get('/')
-          .expect(302, done);
+          .expect(200, done);
       });
     });
 
     describe('#request', function() {
+
+      beforeEach(createSession);
+
       it('should retrieve and send API data', function(done) {
-        request(app)
+        user
           .get('/request/java/portland')
-          .expect(302, done);
+          .expect(200, done);
       });
     });
 
@@ -179,14 +178,20 @@ describe('Routes', function() {
   describe('Jobs Routes', function() {
 
     describe('#index', function() {
+
+      beforeEach(createSession);
+
       it('should send saved jobs for specific user', function(done) {
-        request(app)
+        user
           .get('/users/' + testUserId + '/jobs')
-          .expect(302, done);
+          .expect(200, done);
       });
     });
 
     describe('#create', function() {
+
+      beforeEach(createSession);
+
       it('should add new job to database for specific user', function(done) {
         var job = {
           title: 'some job',
@@ -196,18 +201,21 @@ describe('Routes', function() {
           location: 'Portland, OR'
         }
 
-        request(app)
+        user
           .post('/users/' + testUserId + '/jobs/new')
           .send(job)
-          .expect(302, done);
+          .expect(200, done);
       });
     });
 
     describe('#destroy', function() {
+
+      beforeEach(createSession);
+
       it('should remove specific job from database for specific user', function(done) {
-        request(app)
+        user
           .delete('/users/' + testUserId + '/jobs/' + testJobId)
-          .expect(302, done);
+          .expect(200, done);
       });
     });
 

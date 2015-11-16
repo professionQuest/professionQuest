@@ -17,23 +17,19 @@ router.get('/login', function(req, res) {
 // login
 router.post('/login', function(req, res) {
   User.findOne({ email: req.body.email }, function(err, user) {
-    if (err) res.send(err);
+    if (err) return res.send(err);
 
     if (user === null) {
       // if user does not exist
       req.flash('alert', 'Wrong username or password');
-      console.log('user is null', req.body);
       res.redirect('/login');
     } else {
       // check to see if passwords match (method found in user model)
       user.comparePassword(req.body.password, function(err, isMatch) {
-        if (err) {
-          return res.send(err);
-        }
+        if (err) return res.send(err);
 
         if (isMatch) {
           req.session.user = user._id;
-          console.log('logged in');
           res.redirect('/');
         }
 
@@ -49,7 +45,7 @@ router.post('/login', function(req, res) {
 // logout
 router.get('/logout', function(req, res) {
   req.session.destroy(function(err) {
-    if (err) res.send(err);
+    if (err) return res.send(err);
 
     res.redirect('/login');
   });
