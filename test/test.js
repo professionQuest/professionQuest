@@ -12,6 +12,10 @@ describe('Routes', function() {
   var testJobId;
   var connection;
   var TEST_EMAIL = 'david@test.com';
+  var credentials = {
+    email: TEST_EMAIL,
+    password: '123'
+  };
 
   before(function(done) {
 
@@ -33,8 +37,8 @@ describe('Routes', function() {
 
     user.jobs.push(job);
 
-    user.save(function(err) {
-      if (err) console.log(err, user);
+    user.save(function(err, user) {
+      if (err) return done(err);
       testUserId = user._id;
       testJobId = user.jobs[0]._id
       done();
@@ -73,8 +77,19 @@ describe('Routes', function() {
     });
 
     describe('#logout', function() {
+
+      var user;
+
+      beforeEach(function(done) {
+        user = request(app);
+        user
+          .post('/login')
+          .send(credentials)
+          .expect(302, done);
+      });
+
       it('should delete user session', function(done) {
-        request(app)
+        user
           .get('/logout')
           .expect(302, done);
       });
@@ -108,10 +123,22 @@ describe('Routes', function() {
     });
 
     describe('#edit', function() {
-      it('should send edit user page for specific user', function(done) {
-        request(app)
-          .get('/users/' + testUserId + '/edit')
+      var user;
+
+      beforeEach(function(done) {
+        console.log(credentials);
+        user = request(app);
+        user
+          .post('/login')
+          .type('form')
+          .send(credentials)
           .expect(302, done);
+      });
+
+      it('should send edit user page for specific user', function(done) {
+        user
+          .get('/users/' + testUserId + '/edit')
+          .expect(200, done);
       });
     });
 

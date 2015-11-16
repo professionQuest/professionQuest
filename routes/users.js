@@ -18,6 +18,8 @@ router.use(methodOverride(function(req, res) {
 
 // require a specific user to be logged in
 function requireUser(req, res, next) {
+  console.log(req.session.user);
+  console.log(req.params.id);
   if (req.session.user !== req.params.id) {
     req.flash('alert', 'Not Authorized');
     res.redirect('/');
@@ -60,7 +62,7 @@ router.post('/', function(req, res) {
 // edit
 router.get('/:id/edit', requireUser, function(req, res) {
   User.findOne({_id : req.params.id}, function(err, user) {
-    if (err) {res.send(err)};
+    if (err) return res.send(err);
     res.render('edit-user', { title: 'Edit User', user:user });
   });
 });
